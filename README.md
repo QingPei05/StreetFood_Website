@@ -22,16 +22,16 @@ Includes interactive features such as favorites, search, reviews, quiz, and map 
 ---
 
 ## 📂 File Structure
-- **styles.css** # Main site styling
-- **main.js** # JS for navbar, theme toggle, favorites, etc.
-- **index.html** # Homepage
-- **about.html** # About page
-- **malaysia.html** # Malaysian street food list
-- **global.html** # Global street food list
-- **favorites.html** # Favorites list
-- **search.html** # Search page + optional API call
-- **reviews.html** # Review submission + display
-- **contact.html** # Contact form + social media plugin
-- **quiz.html** # Fun quiz
-- **map.html** # Map embeds
-- **README.md** # This file
+- **styles.css**   # Main site styling
+- **main.js**   # JS for navbar, theme toggle, favorites, etc.
+- **index.html**   # Homepage
+- **about.html**   # About page
+- **malaysia.html**   # Malaysian street food list
+- **global.html**   # Global street food list
+- **favorites.html**   # Favorites list
+- **search.html**   # Search page + optional API call
+- **reviews.html**   # Review submission + display
+- **contact.html**   # Contact form + social media plugin
+- **quiz.html**   # Fun quiz
+- **map.html**   # Map embeds
+- **README.md**   # This file

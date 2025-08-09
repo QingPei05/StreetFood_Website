@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en" data-bs-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Favorites</title>
+  
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top shadow-sm">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="index.html">Explore Street Food</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="malaysia.html">Malaysia</a></li>
+        <li class="nav-item"><a class="nav-link" href="global.html">Global</a></li>
+        <li class="nav-item"><a class="nav-link" href="favorites.html">Favorites</a></li>
+        <li class="nav-item"><a class="nav-link" href="search.html">Search</a></li>
+        <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="quiz.html">Quiz</a></li>
+        <li class="nav-item"><a class="nav-link" href="map.html">Map</a></li>
+        <li class="nav-item ms-lg-2">
+          <button id="themeToggle" class="btn btn-sm btn-outline-secondary" title="Toggle theme">🌙</button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <main class="container py-5">
+    <h1 class="mb-4">Your Favorite Foods</h1>
+    <div id="empty" class="alert alert-info d-none">No favorites yet. Add some from Malaysia/Global pages!</div>
+    <ul id="list" class="list-group"></ul>
+    <button id="clear" class="btn btn-outline-danger mt-3">Clear Favorites</button>
+  </main>
+  <footer class="border-top py-4 text-center text-muted">
+  <small>© 2025 Explore Street Food</small>
+</footer>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="main.js"></script>
+  <script>
+    const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+    const list = document.getElementById('list');
+    const empty = document.getElementById('empty');
+    if (favs.length === 0) { empty.classList.remove('d-none'); }
+    favs.forEach(name => {
+      const li = document.createElement('li');
+      li.className = 'list-group-item d-flex justify-content-between align-items-center';
+      li.textContent = name;
+      const btn = document.createElement('button');
+      btn.className = 'btn btn-sm btn-outline-secondary';
+      btn.textContent = 'Remove';
+      btn.onclick = () => {
+        const arr = JSON.parse(localStorage.getItem('favorites') || '[]').filter(x => x !== name);
+        localStorage.setItem('favorites', JSON.stringify(arr));
+        location.reload();
+      };
+      li.appendChild(btn); list.appendChild(li);
+    });
+    document.getElementById('clear').onclick = () => { localStorage.removeItem('favorites'); location.reload(); }
+  </script>
+</body>
+</html>

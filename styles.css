@@ -20,12 +20,7 @@ html[data-bs-theme="dark"] body { background-color: #111; color: #eaeaea; }
   font-weight: 700;
 }
 
-/* Hero + cards */
-.hero {
-  background: url('https://images.unsplash.com/photo-1526318472351-c75fcf070305?q=80&w=1200') center/cover no-repeat;
-  min-height: 55vh; display: flex; align-items: center; color: #fff;
-  text-shadow: 1px 1px 3px rgba(0,0,0,.5);
-}
+/* Cards */
 .card-img-top { object-fit: cover; height: 180px; }
 
 /* Buttons */
@@ -39,17 +34,30 @@ html[data-bs-theme="dark"] body { background-color: #111; color: #eaeaea; }
   border: none !important;
 }
 
-/* Back to main: fixed below navbar, stays visible on scroll */
-.back-home {
-  position: fixed;
-  top: 72px;           /* below standard navbar (~56px) */
-  right: 12px;
-  z-index: 1040;
-}
-@media (max-width: 991.98px) {
-  .back-home { top: 96px; } /* a bit lower for collapsed nav */
-}
-
 /* Footer */
 footer { background: #f0f0f0; }
 html[data-bs-theme="dark"] footer { background: #1b1b1b; }
+
+/* === Hero (fade carousel) === */
+.hero { 
+  position: relative; 
+  min-height: 55vh; 
+  display: flex; 
+  align-items: center; 
+  color: #fff; 
+  text-shadow: 1px 1px 3px rgba(0,0,0,.5);
+}
+.hero-slides { position: absolute; inset: 0; overflow: hidden; }
+.hero-slides .slide {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  opacity: 0; transition: opacity .8s ease-in-out;
+}
+.hero-slides .slide.active { opacity: 1; }
+
+/* Optional readability overlay */
+.hero::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.18));
+  pointer-events: none;
+}

@@ -17,8 +17,8 @@
   });
 
   function updateThemeIcon(mode, btn){
-    if (mode === 'dark') { btn.textContent = '☀️'; btn.title = 'Switch to light mode'; }
-    else { btn.textContent = '🌙'; btn.title = 'Switch to dark mode'; }
+    if (mode === 'dark') { btn.textContent = '☀︎ Light Mode'; btn.title = 'Switch to light mode'; }
+    else { btn.textContent = '⏾ Dark Mode'; btn.title = 'Switch to dark mode'; }
   }
 })();
 

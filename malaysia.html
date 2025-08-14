@@ -3,76 +3,405 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Malaysia Street Food</title>
-  
+  <title>Malaysia Street Food — Explore Street Food</title>
+
+  <!-- Bootstrap & Site CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css">
-  <style>.card-img-top{object-fit:cover;height:180px}</style>
+  <link rel="stylesheet" href="styles.css"
+    
 </head>
 <body>
+  <!-- Navbar -->
   <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top shadow-sm">
-  <div class="container">
-    <a class="navbar-brand fw-bold" href="index.html">Explore Street Food</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
-    <div class="collapse navbar-collapse" id="nav">
-      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
-        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="malaysia.html">Malaysia</a></li>
-        <li class="nav-item"><a class="nav-link" href="global.html">Global</a></li>
-        <li class="nav-item"><a class="nav-link" href="favorites.html">Favorites</a></li>
-        <li class="nav-item"><a class="nav-link" href="search.html">Search</a></li>
-        <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
-        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-        <li class="nav-item"><a class="nav-link" href="quiz.html">Quiz</a></li>
-        <li class="nav-item"><a class="nav-link" href="map.html">Map</a></li>
-        <li class="nav-item ms-lg-2">
-          <button id="themeToggle" class="btn btn-sm btn-outline-secondary" title="Toggle theme">⏾</button>
-        </li>
-      </ul>
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">Explore Street Food</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link active text-orange" href="malaysia.html">Malaysia</a></li>
+          <li class="nav-item"><a class="nav-link" href="global.html">Global</a></li>
+          <li class="nav-item"><a class="nav-link" href="favorites.html">Favorites</a></li>
+          <li class="nav-item"><a class="nav-link" href="search.html">Search</a></li>
+          <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="quiz.html">Quiz</a></li>
+          <li class="nav-item"><a class="nav-link" href="map.html">Map</a></li>
+          <li class="nav-item ms-lg-2">
+            <button id="themeToggle" class="btn btn-sm btn-outline-secondary" title="Toggle theme">⏾</button>
+          </li>
+        </ul>
+      </div>
     </div>
-  </div>
-</nav>
+  </nav>
 
+  <!-- Main -->
   <main class="container py-5">
     <h1 class="mb-4">Malaysia Street Food</h1>
     <div class="row g-4">
-      <div class="col-md-4" id="satay">
-        <div class="card h-100">
-          <img class="card-img-top" src="https://static01.nyt.com/images/2025/02/13/multimedia/ND-Chicken-Satay-qbkg/ND-Chicken-Satay-qbkg-threeByTwoMediumAt2X.jpg?quality=75&auto=webp" alt="Satay" />
-          <div class="card-body">
-            <h5 class="card-title">Satay</h5>
-            <p class="card-text">Charcoal-grilled skewers served with peanut sauce.</p>
-            <button class="btn btn-outline-primary fav-btn" data-food="Satay">Add to favorites</button>
-          </div>
-        </div>
-      </div>
+
+      <!-- Penang -->
       <div class="col-md-4" id="char-kway-teow">
         <div class="card h-100">
-          <img class="card-img-top" src="https://www.curiousnut.com/wp-content/uploads/2015/11/Char-Kway-Teow-Feat-T.jpg" alt="Char Kway Teow" />
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Char_Kway_Teow%2C_Georgetown%2C_Penang%2C_Malaysia.JPG" alt="Char Kway Teow — Penang fried flat rice noodles with prawns and chives">
           <div class="card-body">
             <h5 class="card-title">Char Kway Teow</h5>
-            <p class="card-text">Wok hei flat rice noodles with prawns and Chinese sausage.</p>
+            <p class="card-text">Wok-fried flat rice noodles with prawns, eggs, and chives — smoky and savoury.</p>
             <button class="btn btn-outline-primary fav-btn" data-food="Char Kway Teow">Add to favorites</button>
           </div>
         </div>
       </div>
-      <div class="col-md-4" id="nasi-lemak">
+
+      <div class="col-md-4" id="asam-laksa">
         <div class="card h-100">
-          <img class="card-img-top" src="https://www.curiousnut.com/wp-content/uploads/2015/06/Nasi-Lemak-Main-T1.jpg" alt="Nasi Lemak" />
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/9/9c/Penang_Laksa.jpg" alt="Asam Laksa — Penang tamarind fish broth with thick rice noodles">
           <div class="card-body">
-            <h5 class="card-title">Nasi Lemak</h5>
-            <p class="card-text">Coconut rice with sambal, anchovies, peanuts, and egg.</p>
-            <button class="btn btn-outline-primary fav-btn" data-food="Nasi Lemak">Add to favorites</button>
+            <h5 class="card-title">Asam Laksa</h5>
+            <p class="card-text">Tangy tamarind fish broth, thick rice noodles, mint, pineapple, torch ginger.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Asam Laksa">Add to favorites</button>
           </div>
         </div>
       </div>
+
+      <div class="col-md-4" id="oyster-omelette">
+        <div class="card h-100">
+          <img class="card-img-top" src="images/placeholder-penang-meegoreng.jpg" alt="Oyster omelette — crispy egg and starch batter with fresh oysters, coriander and chili sauce">
+          <div class="card-body">
+            <h5 class="card-title">Oyster Omelette</h5>
+            <p class="card-text">Fresh oysters with eggs and a light starch batter, pan‑fried to crisp edges and a soft center.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Oyster Omelette">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Malacca -->
+      <div class="col-md-4" id="nyonya-laksa">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Nyonya_Laksa_2.jpg/960px-Nyonya_Laksa_2.jpg?20210605150119" alt="Nyonya Laksa — Malacca coconut curry broth with prawns and fish cake">
+          <div class="card-body">
+            <h5 class="card-title">Nyonya Laksa</h5>
+            <p class="card-text">Rich coconut curry noodle soup with prawns, fish cake, and fragrant herbs.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Nyonya Laksa">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4" id="cendol">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/a/a8/Cendol_Penang.JPG" alt="Cendol — shaved ice with coconut milk, gula melaka and green jelly">
+          <div class="card-body">
+            <h5 class="card-title">Cendol</h5>
+            <p class="card-text">Shaved ice, coconut milk, gula melaka, and green jelly — iconic Malaccan dessert.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Cendol">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4" id="chicken-rice-balls">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Hainanesechickenrice.jpg/500px-Hainanesechickenrice.jpg" alt="Chicken rice balls — ping‑pong sized rice balls with chicken and chili sauce">
+          <div class="card-body">
+            <h5 class="card-title">Chicken Rice Balls</h5>
+            <p class="card-text">Soft ping‑pong sized rice balls, served with steamed/roasted chicken and sweet chili sauce.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Chicken Rice Balls">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Selangor -->
+      <div class="col-md-4" id="satay-kajang">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Sate_Ponorogo.jpg/500px-Sate_Ponorogo.jpg" alt="Satay Kajang — grilled skewers with peanut sauce">
+          <div class="card-body">
+            <h5 class="card-title">Satay Kajang</h5>
+            <p class="card-text">Char‑grilled skewers with smoky aroma, served with classic peanut sauce.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Satay Kajang">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4" id="yong-tau-foo">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Hakka_yong_tau_foo_with_noodles.jpg/500px-Hakka_yong_tau_foo_with_noodles.jpg" alt="Yong Tau Foo — tofu and vegetables stuffed with fish paste or minced meat">
+          <div class="card-body">
+            <h5 class="card-title">Yong Tau Foo</h5>
+            <p class="card-text">Tofu and vegetables stuffed with fish paste or minced meat, served in soup or with sauce.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Yong Tau Foo">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Johor -->
+      <div class="col-md-4" id="mee-rebus">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Mee_rebus_and_Bandung_drink.jpg/500px-Mee_rebus_and_Bandung_drink.jpg" alt="Mee Rebus — yellow noodles in thick sweet‑savory gravy">
+        <div class="card-body">
+            <h5 class="card-title">Mee Rebus</h5>
+            <p class="card-text">Yellow noodles in a thick gravy of sweet potato, spices, and aromatic herbs.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Mee Rebus">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4" id="otak-otak">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Otak-otak_0002.jpg/500px-Otak-otak_0002.jpg" alt="Otak‑otak — banana‑leaf wrapped spiced fish paste grilled over coals">
+          <div class="card-body">
+            <h5 class="card-title">Otak‑otak</h5>
+            <p class="card-text">Spiced fish paste wrapped in leaves and grilled over hot coals.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Otak-otak">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Perlis -->
+      <div class="col-md-4" id="perlis-ikan-bakar">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/6/6a/Ikan_bakar.jpg" alt="Ikan Bakar — grilled fish with spicy sambal belacan">
+          <div class="card-body">
+            <h5 class="card-title">Ikan Bakar (Perlis)</h5>
+            <p class="card-text">Fresh fish marinated in spices, grilled to perfection, served with tangy sambal belacan.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Ikan Bakar (Perlis)">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4" id="pulut-mempelam">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Mango_sticy_rice_%283859549574%29.jpg/500px-Mango_sticy_rice_%283859549574%29.jpg" alt="Pulut Mempelam — glutinous rice with ripe mango and coconut milk">
+          <div class="card-body">
+            <h5 class="card-title">Pulut Mempelam</h5>
+            <p class="card-text">Glutinous rice topped with sweet ripe mango, drizzled with creamy coconut milk.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Pulut Mempelam">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kedah -->
+      <div class="col-md-4" id="nasi-ulam">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/4/48/Nasi_Ulam_Betawi.jpg" alt="Nasi Ulam — rice mixed with finely chopped herbs">
+          <div class="card-body">
+            <h5 class="card-title">Nasi Ulam (Kedah)</h5>
+            <p class="card-text">Steamed rice tossed with chopped herbs, vegetables, and toasted coconut.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Nasi Ulam (Kedah)">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4" id="pekasam">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b6/Iwak_Pakasam_Basanga.JPG/500px-Iwak_Pakasam_Basanga.JPG" alt="Pekasam — fermented freshwater fish seasoned with rice and spices">
+          <div class="card-body">
+            <h5 class="card-title">Pekasam</h5>
+            <p class="card-text">Fermented freshwater fish delicacy seasoned with salt, toasted rice, and spices.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Pekasam">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Negeri Sembilan -->
+      <div class="col-md-4" id="rendang-minang">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/d/da/Rendang-padang.jpg" alt="Rendang Minang — slow-cooked beef in coconut milk and spices">
+          <div class="card-body">
+            <h5 class="card-title">Rendang Minang</h5>
+            <p class="card-text">Slow‑cooked beef in coconut milk and spices — rich and aromatic.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Rendang Minang">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4" id="lemang">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Piece_of_Lemang.jpg/500px-Piece_of_Lemang.jpg" alt="Lemang — glutinous rice cooked in bamboo with coconut milk">
+          <div class="card-body">
+            <h5 class="card-title">Lemang</h5>
+            <p class="card-text">Glutinous rice cooked in bamboo with coconut milk; festive favourite.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Lemang">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4" id="serunding">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Serundeng_Daging.jpg/500px-Serundeng_Daging.jpg" alt="Serunding — spiced meat floss side dish/snack">
+          <div class="card-body">
+            <h5 class="card-title">Serunding</h5>
+            <p class="card-text">Finely shredded meat cooked with spices and coconut — a popular side/snack.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Serunding">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Kelantan -->
+      <div class="col-md-4" id="nasi-kerabu">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Nasi_kerabu.jpg/500px-Nasi_kerabu.jpg" alt="Nasi Kerabu — blue rice with herbs and grilled items">
+          <div class="card-body">
+            <h5 class="card-title">Nasi Kerabu</h5>
+            <p class="card-text">Blue‑tinted herb rice with raw salad, grilled fish/chicken, and budu.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Nasi Kerabu">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4" id="akok">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Akok_20230504_133207.jpg/500px-Akok_20230504_133207.jpg" alt="Akok — Kelantanese kuih with coconut milk and palm sugar">
+          <div class="card-body">
+            <h5 class="card-title">Akok</h5>
+            <p class="card-text">Soft, custardy kuih with caramelised edges — coconut & palm sugar aroma.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Akok">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Terengganu -->
+      <div class="col-md-4" id="keropok-lekor">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Keropok_lekor_in_Terengganu%2C_Malaysia.jpg/500px-Keropok_lekor_in_Terengganu%2C_Malaysia.jpg" alt="Keropok Lekor — fish fritter sticks with chili sauce">
+          <div class="card-body">
+            <h5 class="card-title">Keropok Lekor</h5>
+            <p class="card-text">Chewy fish sausage fritters, best hot with chili sauce by seaside stalls.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Keropok Lekor">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4" id="satar">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/YosriSatar.jpg/1280px-YosriSatar.jpg" alt="Satar — cone-shaped banana leaf parcels filled with spiced fish, grilled over charcoal">
+          <div class="card-body">
+            <h5 class="card-title">Satar</h5>
+            <p class="card-text">Cone‑shaped banana leaf parcels with spiced fish and coconut, grilled over charcoal.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Satar">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Perak -->
+      <div class="col-md-4" id="ipoh-hor-fun">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Ipoh_Chicken_Hor_Fun.jpg/1200px-Ipoh_Chicken_Hor_Fun.jpg?20141130064212" alt="Ipoh Hor Fun — silky flat rice noodles in delicate broth">
+          <div class="card-body">
+            <h5 class="card-title">Ipoh Hor Fun</h5>
+            <p class="card-text">Silky flat rice noodles in delicate chicken‑prawn broth — Ipoh’s comfort classic.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Ipoh Hor Fun">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4" id="salt-baked-chicken">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://smartdory.com/wp-content/uploads/2018/10/Aun-Kheng-Lim-Salted-Chicken-680x350.jpg" alt="Salt baked chicken — whole chicken baked in coarse salt with Chinese herbs">
+          <div class="card-body">
+            <h5 class="card-title">Salt Baked Chicken</h5>
+            <p class="card-text">Whole chicken marinated with Chinese herbs and baked in coarse salt — Ipoh signature.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Salt Baked Chicken">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4" id="ipoh-white-coffee">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Ipoh_White_Coffee%2C_Old_Town_Kopitiam_in_Australia.jpg/500px-Ipoh_White_Coffee%2C_Old_Town_Kopitiam_in_Australia.jpg" alt="Ipoh White Coffee — margarine-roasted beans with condensed milk">
+          <div class="card-body">
+            <h5 class="card-title">Ipoh White Coffee</h5>
+            <p class="card-text">Smooth, aromatic coffee roasted with margarine and served with condensed milk.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Ipoh White Coffee">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sabah -->
+      <div class="col-md-4" id="hinava">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Hinava_Sabah.jpg" alt="Hinava — cured fish with lime, ginger, chilies and shallots (Sabah)">
+          <div class="card-body">
+            <h5 class="card-title">Hinava</h5>
+            <p class="card-text">Fresh fish cured with lime, ginger, chilies and shallots — bright and zesty.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Hinava">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4" id="mee-goreng-tuaran">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/Mee_Goreng_Tuaran_bj.jpg/1200px-Mee_Goreng_Tuaran_bj.jpg" alt="Mee Goreng Tuaran — stir-fried handmade egg noodles from Tuaran, Sabah">
+          <div class="card-body">
+            <h5 class="card-title">Mee Goreng Tuaran</h5>
+            <p class="card-text">Stir‑fried handmade egg noodles with vegetables, char siu and egg — springy texture.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Mee Goreng Tuaran">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sarawak -->
+      <div class="col-md-4" id="kolo-mee">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/Sarawak_Kolo_Mee.jpg/500px-Sarawak_Kolo_Mee.jpg" alt="Kolo Mee — springy noodles with minced meat and char siu">
+          <div class="card-body">
+            <h5 class="card-title">Kolo Mee</h5>
+            <p class="card-text">Springy noodles tossed in light savoury sauce, topped with minced meat and char siu.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Kolo Mee">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4" id="sarawak-laksa">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Laksa_Sarawak.JPG/500px-Laksa_Sarawak.JPG" alt="Sarawak Laksa — spiced coconut broth with vermicelli and prawns">
+          <div class="card-body">
+            <h5 class="card-title">Sarawak Laksa</h5>
+            <p class="card-text">Fragrant spiced coconut broth with vermicelli, prawns, and omelette strips.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Sarawak Laksa">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4" id="kek-lapis-sarawak">
+        <div class="card h-100">
+          <img class="card-img-top" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Kek_Lapis_Sarawak.jpg/330px-Kek_Lapis_Sarawak.jpg" alt="Kek Lapis Sarawak — colourful layered cake with patterns">
+          <div class="card-body">
+            <h5 class="card-title">Kek Lapis Sarawak</h5>
+            <p class="card-text">Vibrant multi‑layered cake with intricate patterns; festive favourite.</p>
+            <button class="btn btn-outline-primary fav-btn" data-food="Kek Lapis Sarawak">Add to favorites</button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </main>
+
+  <!-- Footer -->
   <footer class="border-top py-4 text-center text-muted">
-  <small>© 2025 Explore Street Food</small>
-</footer>
+    <small>© 2025 Explore Street Food</small>
+  </footer>
+
+  <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="main.js"></script>
+ 
+  <script>
+    (function initFavorites(){
+      function getFavs(){ try { return JSON.parse(localStorage.getItem('favorites')||'[]'); } catch(e){ return []; } }
+      function setFavs(a){ localStorage.setItem('favorites', JSON.stringify(a)); }
+      document.querySelectorAll('.fav-btn').forEach(btn=>{
+        const name = btn.dataset.food; if(!name) return;
+        const favs = getFavs();
+        if(favs.includes(name)){ btn.classList.replace('btn-outline-primary','btn-success'); btn.textContent='Added to favorites'; }
+        btn.addEventListener('click', ()=>{
+          const now = getFavs(); const i = now.indexOf(name);
+          if(i===-1){ now.push(name); btn.classList.replace('btn-outline-primary','btn-success'); btn.textContent='Added to favorites'; }
+          else{ now.splice(i,1); btn.classList.replace('btn-success','btn-outline-primary'); btn.textContent='Add to favorites'; }
+          setFavs(now);
+        });
+      });
+    })();
+  </script>
 </body>
 </html>

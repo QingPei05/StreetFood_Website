@@ -1,105 +1,302 @@
 <!doctype html>
 <html lang="en" data-bs-theme="light">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Search Street Food</title>
-  
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css">
-  <style>.card-img-top{object-fit:cover;height:140px}</style>
+  <style>
+    .card-img-top {
+      object-fit: cover;
+      height: 140px;
+    }
+  </style>
 </head>
-<body>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top shadow-sm">
-  <div class="container">
-    <a class="navbar-brand fw-bold" href="index.html">Explore Street Food</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
-    <div class="collapse navbar-collapse" id="nav">
-      <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
-        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-        <li class="nav-item"><a class="nav-link" href="malaysia.html">Malaysia</a></li>
-        <li class="nav-item"><a class="nav-link" href="global.html">Global</a></li>
-        <li class="nav-item"><a class="nav-link" href="favorites.html">Favorites</a></li>
-        <li class="nav-item"><a class="nav-link" href="search.html">Search</a></li>
-        <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
-        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-        <li class="nav-item"><a class="nav-link" href="quiz.html">Quiz</a></li>
-        <li class="nav-item"><a class="nav-link" href="map.html">Map</a></li>
-        <li class="nav-item ms-lg-2">
-          <button id="themeToggle" class="btn btn-sm btn-outline-secondary" title="Toggle theme">⏾</button>
-        </li>
-      </ul>
-    </div>
-  </div>
-</nav>
 
+<body>
+  <!-- Auth Gate -->
+  <script>
+    (function gate() { const key = 'session_user_v1'; if (!sessionStorage.getItem(key)) sessionStorage.setItem(key, 'Guest'); })();
+  </script>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html">Explore Street Food</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="nav">
+        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+          <li class="nav-item"><a class="nav-link" href="malaysia.html">Malaysia</a></li>
+          <li class="nav-item"><a class="nav-link" href="global.html">Global</a></li>
+          <li class="nav-item"><a class="nav-link" href="favorites.html">Favorites</a></li>
+          <li class="nav-item"><a class="nav-link active" href="search.html">Search</a></li>
+          <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
+          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+          <li class="nav-item"><a class="nav-link" href="quiz.html">Quiz</a></li>
+          <li class="nav-item"><a class="nav-link" href="map.html">Map</a></li>
+
+          <!-- Avatar dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle p-0" href="#" data-bs-toggle="dropdown" aria-expanded="false"
+              id="navUser" title="Hi, Guest" aria-label="Hi, Guest">
+              <img src="profile-user-svgrepo-com.svg" alt="User Avatar" class="rounded-circle"
+                style="width:32px;height:32px;object-fit:cover;">
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="account.html">Account settings</a></li>
+              <li>
+                <button class="dropdown-item d-flex align-items-center gap-2" id="themeToggleItem" type="button">
+                  <span id="themeToggleIcon" aria-hidden="true">🌙</span>
+                  <span id="themeToggleText">Dark mode</span>
+                </button>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><button class="dropdown-item text-danger" id="navSignout" type="button">Sign out</button></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main -->
   <main class="container py-5">
     <h1 class="mb-4">Search</h1>
+
+    <div id="notice" class="alert alert-info">
+      Click <strong>“Load from API”</strong> to fetch foods, then use search and country filter.
+    </div>
+
     <div class="row g-3 mb-3">
-      <div class="col-md-6"><input id="q" class="form-control" placeholder="Search by name, country, or tag..." /></div>
+      <div class="col-md-6">
+        <input id="q" class="form-control" placeholder="Search by dish name, country, or tag..." />
+      </div>
       <div class="col-md-3">
-        <select id="region" class="form-select">
-          <option value="">All Regions</option>
-          <option>Malaysia</option><option>Japan</option><option>Mexico</option><option>Vietnam</option>
+        <select id="countryFilter" class="form-select">
+          <option value="">All Countries</option>
         </select>
       </div>
-      <div class="col-md-3 d-grid"><button id="load" class="btn btn-outline-primary">Load Sample API Data</button></div>
+      <div class="col-md-3 d-grid">
+        <button id="loadApi" class="btn btn-outline-primary" type="button">Load from API</button>
+      </div>
     </div>
+
     <div id="grid" class="row g-4"></div>
   </main>
+
   <footer class="border-top py-4 text-center text-muted">
-  <small>© 2025 Explore Street Food</small>
-</footer>
+    <small>© 2025 Explore Street Food</small>
+  </footer>
+
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="main.js"></script>
-  <script>
-    const data = [
-      {name:'Satay', country:'Malaysia', tags:['grilled','peanut'], img:'https://static01.nyt.com/images/2025/02/13/multimedia/ND-Chicken-Satay-qbkg/ND-Chicken-Satay-qbkg-threeByTwoMediumAt2X.jpg?quality=75&auto=webp'},
-      {name:'Takoyaki', country:'Japan', tags:['seafood','snack'], img:'https://s.hungryghostfoodandtravel.com/media/20240912224148/takoyaki-recipe_done.png.webp'},
-      {name:'Tacos', country:'Mexico', tags:['corn','spicy'], img:'https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?q=80&w=1200'},
-      {name:'Bánh mì', country:'Vietnam', tags:['sandwich'], img:'https://images.unsplash.com/photo-1590947132387-155cc02f3212?q=80&w=1200'}
-    ];
-    const grid = document.getElementById('grid');
 
-    function render(list){
-      grid.innerHTML = '';
-      list.forEach(x=>{
-        grid.insertAdjacentHTML('beforeend', `
-          <div class="col-sm-6 col-md-3">
-            <div class="card h-100">
-              <img class="card-img-top" src="${x.img}" alt="${x.name}">
-              <div class="card-body">
-                <h6 class="card-title mb-1">${x.name}</h6>
-                <small class="text-muted">${x.country}</small>
-                <p class="mt-2 mb-2"><span class="badge text-bg-light">${x.tags.join('</span> <span class="badge text-bg-light">')}</span></p>
-                <button class="btn btn-outline-primary fav-btn" data-food="${x.name}">Add to favorites</button>
-              </div>
-            </div>
-          </div>`);
-      });
+  <script>
+    // ---------- DOM ----------
+    const GRID = document.getElementById('grid');
+    const Q = document.getElementById('q');
+    const COUNTRY = document.getElementById('countryFilter');
+    const NOTICE = document.getElementById('notice');
+    const LOAD = document.getElementById('loadApi');
+
+    // ---------- APIs ----------
+    const API_DUMMY = 'https://dummyjson.com/recipes?limit=120';                 // has "cuisine"
+    const API_MEALDB_AREAS = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list'; // valid demonyms list
+
+    // ---------- State ----------
+    let DATA = [];        // normalized items
+    let VALID_AREAS = []; // TheMealDB demonyms
+    let COUNTRY_MAP = {}; // demonym -> real country name
+
+    // ---------- Demonym → Country mapping ----------
+    function buildCountryMap(areas) {
+      const base = {
+        'American': 'United States', 'British': 'United Kingdom', 'Canadian': 'Canada', 'Chinese': 'China', 'Croatian': 'Croatia',
+        'Dutch': 'Netherlands', 'Egyptian': 'Egypt', 'Filipino': 'Philippines', 'French': 'France', 'Greek': 'Greece',
+        'Indian': 'India', 'Irish': 'Ireland', 'Italian': 'Italy', 'Jamaican': 'Jamaica', 'Japanese': 'Japan',
+        'Kenyan': 'Kenya', 'Malaysian': 'Malaysia', 'Mexican': 'Mexico', 'Moroccan': 'Morocco', 'Polish': 'Poland',
+        'Portuguese': 'Portugal', 'Russian': 'Russia', 'Spanish': 'Spain', 'Thai': 'Thailand', 'Tunisian': 'Tunisia',
+        'Turkish': 'Turkey', 'Vietnamese': 'Vietnam', 'Indonesian': 'Indonesia', 'Korean': 'South Korea',
+        'Lebanese': 'Lebanon', 'Brazilian': 'Brazil', 'Peruvian': 'Peru', 'Chilean': 'Chile', 'Colombian': 'Colombia',
+        'Pakistani': 'Pakistan', 'Singaporean': 'Singapore', 'Taiwanese': 'Taiwan', 'Hungarian': 'Hungary',
+        'German': 'Germany', 'Iranian': 'Iran', 'Syrian': 'Syria', 'Bangladeshi': 'Bangladesh'
+      };
+      const map = {};
+      areas.forEach(a => { if (base[a]) map[a] = base[a]; });
+      return map;
     }
-    function filter(){
-      const q = document.getElementById('q').value.toLowerCase();
-      const reg = document.getElementById('region').value;
-      const list = data.filter(x =>
-        (!reg || x.country === reg) &&
-        (x.name.toLowerCase().includes(q) || x.country.toLowerCase().includes(q) || x.tags.join(' ').toLowerCase().includes(q))
-      );
+
+    // ---------- Tags ----------
+    function tagsFromRecipe(r) {
+      const t = [];
+      if (Array.isArray(r.tags)) t.push(...r.tags);
+      if (r.mealType && Array.isArray(r.mealType)) t.push(...r.mealType);
+      if (r.difficulty) t.push(r.difficulty);
+      if (r.course) t.push(r.course);
+      return t.map(s => String(s).trim()).filter(Boolean).slice(0, 4);
+    }
+
+    // ---------- Favorites ----------
+    function getFavs() { try { return JSON.parse(localStorage.getItem('favorites') || '[]'); } catch { return []; } }
+    function setFavs(a) { localStorage.setItem('favorites', JSON.stringify(a || [])); }
+    function getFavMeta() { try { return JSON.parse(localStorage.getItem('favorites_meta_v1') || '{}'); } catch { return {}; } }
+    function setFavMeta(m) { localStorage.setItem('favorites_meta_v1', JSON.stringify(m || {})); }
+
+    function markAdded(btn) {
+      btn.classList.add('btn-added');
+      btn.classList.remove('btn-outline-primary', 'btn-primary');
+      btn.textContent = 'Added to favorites';
+      btn.disabled = true;
+    }
+
+    function addFavoriteWithMeta(name, meta, btn) {
+      const arr = getFavs();
+      if (!arr.includes(name)) { arr.push(name); setFavs(arr); }
+      const map = getFavMeta();
+      map[name] = { img: meta.img || '', country: meta.country || '', link: meta.link || '#', source: 'api' };
+      setFavMeta(map);
+      markAdded(btn);
+    }
+
+    // ---------- Cards ----------
+    function cardHTML(x) {
+      const tags = x.tags?.length ? `<p class="mt-2 mb-2"><span class="badge text-bg-light">${x.tags.join('</span> <span class="badge text-bg-light">')}</span></p>` : '';
+      return `<div class="col-sm-6 col-md-3">
+        <div class="card h-100">
+          <img class="card-img-top" src="${x.img}" alt="${x.name}">
+          <div class="card-body">
+            <h6 class="card-title mb-1">${x.name}</h6>
+            <small class="text-muted">${x.country}</small>
+            ${tags}
+            <div class="d-flex gap-2 mt-1">
+              <button class="btn btn-outline-primary btn-sm fav-btn"
+                      data-food="${x.name}"
+                      data-img="${x.img}"
+                      data-country="${x.country}">Add to favorites</button>
+              <button class="btn btn-outline-secondary btn-sm map-btn"
+                      data-q="${x.name}"
+                      data-country="${x.country}">View on Map</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    }
+
+    function render(list) {
+      GRID.innerHTML = (list && list.length) ? list.map(cardHTML).join('') : '';
+
+      // favorites wiring
+      const favs = getFavs();
+      GRID.querySelectorAll('.fav-btn[data-food]').forEach(btn => {
+        const name = btn.getAttribute('data-food');
+        if (favs.includes(name)) { markAdded(btn); return; }
+        btn.addEventListener('click', () => {
+          addFavoriteWithMeta(name, {
+            img: btn.getAttribute('data-img') || '',
+            country: btn.getAttribute('data-country') || '',
+            link: '#'
+          }, btn);
+        }, { once: true });
+      });
+
+      // map buttons
+      GRID.querySelectorAll('.map-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const name = btn.getAttribute('data-q') || 'street food';
+          const country = btn.getAttribute('data-country') || '';
+          const q = country ? `${name} ${country} street food` : `${name} street food`;
+          window.location.href = 'map.html?q=' + encodeURIComponent(q);
+        });
+      });
+
+      const n = list?.length || 0;
+      NOTICE.className = 'alert ' + (n ? 'alert-success' : 'alert-warning');
+      NOTICE.textContent = n ? `Showing ${n} result(s).` : 'No results. Adjust search or country filter.';
+    }
+
+    function buildCountryFilter(items) {
+      const set = new Set(items.map(x => x.country).filter(Boolean));
+      COUNTRY.innerHTML = '<option value="">All Countries</option>' +
+        Array.from(set).sort((a, b) => a.localeCompare(b)).map(c => `<option>${c}</option>`).join('');
+    }
+
+    function filterNow() {
+      const q = (Q.value || '').toLowerCase().trim();
+      const c = COUNTRY.value;
+      const list = DATA.filter(x => {
+        const okC = !c || x.country === c;
+        if (!q) return okC;
+        const bag = [x.name, x.country, ...(x.tags || [])].join(' ').toLowerCase();
+        return okC && bag.includes(q);
+      });
       render(list);
     }
-    document.getElementById('q').oninput = filter;
-    document.getElementById('region').onchange = filter;
-    render(data);
 
-    // Optional RESTful API demo
-    document.getElementById('load').onclick = async () => {
-      const res = await fetch('https://dummyjson.com/recipes?limit=4');
-      const json = await res.json();
-      const extra = json.recipes.map(r => ({ name:r.name, country:'Global', tags:r.tags||['recipe'], img:r.image }));
-      data.push(...extra); filter();
-      document.getElementById('load').disabled = true; document.getElementById('load').textContent = 'Loaded';
+    // ---------- Load from API (no scraping) ----------
+    async function loadFromAPI() {
+      LOAD.disabled = true;
+      LOAD.textContent = 'Loading...';
+      NOTICE.className = 'alert alert-info';
+      NOTICE.textContent = 'Fetching recipes and validating cuisines...';
+
+      try {
+        // 1) Valid demonyms from TheMealDB
+        const aRes = await fetch(API_MEALDB_AREAS);
+        const aJson = await aRes.json();
+        VALID_AREAS = (aJson?.meals || []).map(x => x.strArea).filter(Boolean);
+        COUNTRY_MAP = buildCountryMap(VALID_AREAS);
+
+        // 2) DummyJSON recipes
+        const rRes = await fetch(API_DUMMY);
+        const rJson = await rRes.json();
+        const rows = Array.isArray(rJson?.recipes) ? rJson.recipes : [];
+
+        // 3) Normalize & keep only mapped cuisines
+        DATA = rows.reduce((acc, r) => {
+          const demonym = (r.cuisine || '').trim();
+          if (!demonym) return acc;
+          if (!VALID_AREAS.includes(demonym)) return acc;
+          const country = COUNTRY_MAP[demonym];
+          if (!country) return acc;
+          acc.push({
+            name: r.name,
+            country,
+            tags: tagsFromRecipe(r),
+            img: r.image || 'https://via.placeholder.com/600x400?text=No+Image'
+          });
+          return acc;
+        }, []);
+
+        buildCountryFilter(DATA);
+        filterNow();
+
+        NOTICE.className = 'alert alert-success';
+        NOTICE.textContent = `Loaded ${DATA.length} item(s) from API.`;
+        LOAD.textContent = 'Loaded';
+      } catch (err) {
+        console.error(err);
+        NOTICE.className = 'alert alert-danger';
+        NOTICE.textContent = 'Failed to load from API. Please try again.';
+        LOAD.disabled = false;
+        LOAD.textContent = 'Load from API';
+      }
     }
+
+    // ---------- Events ----------
+    Q.addEventListener('input', filterNow);
+    COUNTRY.addEventListener('change', filterNow);
+    LOAD.addEventListener('click', loadFromAPI);
   </script>
 </body>
+
 </html>

@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Global Street Food — Explore Street Food</title>
+  <title>Explore Street Food — Global</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css">
@@ -20,19 +20,23 @@
       }
     })();
   </script>
+
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top shadow-sm">
+  <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
     <div class="container">
       <a class="navbar-brand fw-bold" href="index.html">Explore Street Food</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain"
+        aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="nav">
+      <div class="collapse navbar-collapse" id="navMain">
         <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+
           <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
           <li class="nav-item"><a class="nav-link" href="malaysia.html">Malaysia</a></li>
-          <li class="nav-item"><a class="nav-link active" href="global.html">Global</a></li>
+          <li class="nav-item"><a class="nav-link" href="global.html">Global</a></li>
           <li class="nav-item"><a class="nav-link" href="favorites.html">Favorites</a></li>
           <li class="nav-item"><a class="nav-link" href="search.html">Search</a></li>
           <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
@@ -47,21 +51,38 @@
               <img src="profile-user-svgrepo-com.svg" alt="User Avatar" class="rounded-circle"
                 style="width:32px;height:32px;object-fit:cover;">
             </a>
+
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href="account.html">Account settings</a></li>
+
+              <!-- Centered user header (auto-hidden for Guest by main.js) -->
+              <li class="dropdown-userinfo text-center py-2">
+                <div id="ddFullName" class="fw-bold">Guest</div>
+                <div id="ddUsername" class="text-muted">@guest</div>
+              </li>
               <li>
-                <!-- Dark/Light mode -->
+                <hr class="dropdown-divider">
+              </li>
+
+              <!-- Theme toggle -->
+              <li>
                 <button class="dropdown-item d-flex align-items-center gap-2" id="themeToggleItem" type="button">
                   <span id="themeToggleIcon" aria-hidden="true">🌙</span>
                   <span id="themeToggleText">Dark mode</span>
                 </button>
               </li>
+
+              <!-- Account settings (hidden for Guest by main.js) -->
+              <li><a class="dropdown-item" id="navAccountSettings" href="account.html">Account settings</a></li>
+
               <li>
                 <hr class="dropdown-divider">
               </li>
+
+              <!-- Same slot for Sign in (Guest) / Sign out (Signed-in). Text is set by main.js -->
               <li><button class="dropdown-item text-danger" id="navSignout" type="button">Sign out</button></li>
             </ul>
           </li>
+
         </ul>
       </div>
     </div>
@@ -69,12 +90,7 @@
 
   <!-- Main -->
   <main class="container py-5">
-    <h1 class="mb-2">Global Street Food</h1>
-    <p class="text-muted small mb-4">
-      📸 Images on this page are from
-      <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Wikimedia Commons</a>
-      (Wikipedia’s media library) unless stated otherwise.
-    </p>
+    <h1 class="mb-4">Global Street Food</h1>
 
     <!-- Continent Filter + Map for Selected -->
     <div class="row g-2 align-items-center mb-3">
@@ -350,10 +366,14 @@
     </div>
   </main>
 
-  <!-- Footer -->
-  <footer class="border-top py-4 text-center text-muted">
-    <small>© 2025 Explore Street Food</small>
+  <footer class="py-4 bg-body-tertiary border-top mt-auto">
+    <div class="container text-center small text-secondary">
+      © 2025 Explore Street Food
+      &nbsp;|&nbsp;
+      <a href="about.html" class="text-decoration-none">Group 61</a>
+    </div>
   </footer>
+
 
   <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
@@ -362,25 +382,7 @@
 
   <!-- Favorites -->
   <script>
-    (function initFavorites() {
-      function getFavs() { try { return JSON.parse(localStorage.getItem('favorites') || '[]'); } catch (e) { return []; } }
-      function setFavs(a) { localStorage.setItem('favorites', JSON.stringify(a)); }
-      document.querySelectorAll('.fav-btn').forEach(btn => {
-        const name = btn.dataset.food; if (!name) return;
-        const favs = getFavs();
-        if (favs.includes(name)) { btn.classList.replace('btn-outline-primary', 'btn-success'); btn.textContent = 'Added to favorites'; }
-        btn.addEventListener('click', () => {
-          const now = getFavs(); const i = now.indexOf(name);
-          if (i === -1) { now.push(name); btn.classList.replace('btn-outline-primary', 'btn-success'); btn.textContent = 'Added to favorites'; }
-          else { now.splice(i, 1); btn.classList.replace('btn-success', 'btn-outline-primary'); btn.textContent = 'Add to favorites'; }
-          setFavs(now);
-        });
-      });
-    })();
-  </script>
-
-  <!-- Continent filter + Map buttons -->
-  <script>
+    // Continent filter + Map buttons
     (function filterAndMap() {
       const select = document.getElementById('continentFilter');
       const reset = document.getElementById('resetFilter');
@@ -406,14 +408,22 @@
       reset?.addEventListener('click', () => { if (select) { select.value = 'all'; } apply(); });
       apply();
 
-      // Add "View on Map" button to each card
+      // Add "View on Map" to each card, passing food & country to map.html
       document.querySelectorAll('.row.g-4 > [data-continent] .card .card-body').forEach(body => {
-        const title = body.querySelector('.card-title')?.textContent.trim() || 'street food';
+        const titleFull = body.querySelector('.card-title')?.textContent.trim() || 'Street Food';
+        // Parse form: "Takoyaki (Japan)" -> food="Takoyaki", country="Japan"
+        const m = titleFull.match(/^(.*?)\s*\(([^)]+)\)\s*$/);
+        const food = m ? m[1].trim() : titleFull.trim();
+        const country = m ? m[2].trim() : '';
+
         const btn = document.createElement('button');
         btn.className = 'btn btn-outline-secondary map-btn';
         btn.textContent = 'View on Map';
         btn.addEventListener('click', () => {
-          window.location.href = 'map.html?q=' + encodeURIComponent(title);
+          const url = new URL('map.html', location.href);
+          url.searchParams.set('food', food);
+          if (country) url.searchParams.set('country', country);
+          location.href = url.toString();
         });
         const fav = body.querySelector('.fav-btn');
         if (fav) { fav.insertAdjacentElement('afterend', btn); fav.classList.add('me-2'); }

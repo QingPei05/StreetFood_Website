@@ -36,10 +36,66 @@ html[data-bs-theme="dark"] body {
   font-weight: 700;
 }
 
+/* Navbar hover */
+.navbar .nav-link {
+  transition: color .15s ease, background-color .15s ease;
+  border-radius: .375rem;
+}
+
+html[data-bs-theme="light"] .navbar .nav-link:hover {
+  color: var(--brand) !important;
+  background-color: rgba(0, 0, 0, .05);
+}
+
+html[data-bs-theme="dark"] .navbar .nav-link:hover {
+  color: var(--brand) !important;
+  background-color: rgba(255, 255, 255, .08);
+}
+
 /* Cards */
 .card-img-top {
   object-fit: cover;
   height: 160px;
+  transition: transform .3s ease;
+}
+
+/* Animated colorful cards */
+.card {
+  border: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ffffff, #fafafa);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .10);
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 36px rgba(255, 87, 34, .25);
+  /* orange glow */
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.08);
+  /* bigger zoom */
+}
+
+/* Plain cards (account & change-password) */
+.card.card-plain {
+  border: 1px solid var(--bs-border-color, rgba(0, 0, 0, .125));
+  border-radius: .375rem;
+  box-shadow: none !important;
+  background: #fff !important;
+  transform: none !important;
+}
+
+html[data-bs-theme="dark"] .card.card-plain {
+  background: #1b1b1b !important;
+}
+
+.card.card-plain:hover {
+  box-shadow: none !important;
+  transform: none !important;
 }
 
 /* Badge (API) */
@@ -62,7 +118,6 @@ html[data-bs-theme="dark"] body {
 /* Added-to-favorites state */
 .btn-added {
   background-color: #6c757d !important;
-  /* Bootstrap secondary gray */
   color: #fff !important;
   border: none !important;
 }
@@ -105,7 +160,6 @@ html[data-bs-theme="dark"] footer {
   opacity: 1;
 }
 
-/* Optional readability overlay */
 .hero::after {
   content: "";
   position: absolute;
@@ -116,21 +170,18 @@ html[data-bs-theme="dark"] footer {
 
 /* Social Card styling */
 .social-card {
-  --radius: 16px;
-  --shadow: 0 10px 30px rgba(0, 0, 0, .10);
-  --shadow-hover: 0 14px 36px rgba(0, 0, 0, .14);
   border: 0;
-  border-radius: var(--radius);
+  border-radius: 16px;
   overflow: hidden;
   background: linear-gradient(135deg, #ffffff, #fafafa);
-  box-shadow: var(--shadow);
-  max-width: 420px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .10);
   transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
 }
 
 .social-card:hover {
   transform: translateY(-2px);
-  box-shadow: var(--shadow-hover);
+  box-shadow: 0 14px 36px rgba(255, 87, 34, .25);
+  /* orange glow */
 }
 
 .social-avatar {
@@ -140,7 +191,6 @@ html[data-bs-theme="dark"] footer {
   display: grid;
   place-items: center;
   background: #1877F2;
-  /* Facebook Blue */
   flex: 0 0 auto;
 }
 

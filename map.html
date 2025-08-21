@@ -1,32 +1,48 @@
 <!doctype html>
 <html lang="en" data-bs-theme="light">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Food Map</title>
-  
+  <title>Explore Street Food — Food Map</title>
+
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css">
+  <style>
+    #geoStatus {
+      min-height: 1.25rem;
+    }
+
+    #mapWrap iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+  </style>
 </head>
+
 <body>
-  <!-- Auth Gate (require sign in on this page) -->
+  <!-- Auth Gate (demo sign-in state) -->
   <script>
     (function gate() {
       const key = 'session_user_v1';
-      if (!sessionStorage.getItem(key)) {
-        sessionStorage.setItem(key, 'Guest');
-      }
+      if (!sessionStorage.getItem(key)) sessionStorage.setItem(key, 'Guest');
     })();
   </script>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top shadow-sm">
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
     <div class="container">
       <a class="navbar-brand fw-bold" href="index.html">Explore Street Food</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain"
+        aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
 
-      <div class="collapse navbar-collapse" id="nav">
+      <div class="collapse navbar-collapse" id="navMain">
         <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
+
           <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
           <li class="nav-item"><a class="nav-link" href="malaysia.html">Malaysia</a></li>
           <li class="nav-item"><a class="nav-link" href="global.html">Global</a></li>
@@ -35,7 +51,7 @@
           <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
           <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
           <li class="nav-item"><a class="nav-link" href="quiz.html">Quiz</a></li>
-          <li class="nav-item"><a class="nav-link active" href="map.html">Map</a></li>
+          <li class="nav-item"><a class="nav-link" href="map.html">Map</a></li>
 
           <!-- Avatar dropdown -->
           <li class="nav-item dropdown">
@@ -44,41 +60,219 @@
               <img src="profile-user-svgrepo-com.svg" alt="User Avatar" class="rounded-circle"
                 style="width:32px;height:32px;object-fit:cover;">
             </a>
+
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><a class="dropdown-item" href="account.html">Account settings</a></li>
+
+              <!-- Centered user header (auto-hidden for Guest by main.js) -->
+              <li class="dropdown-userinfo text-center py-2">
+                <div id="ddFullName" class="fw-bold">Guest</div>
+                <div id="ddUsername" class="text-muted">@guest</div>
+              </li>
               <li>
-                <!-- Dark/Light mode -->
+                <hr class="dropdown-divider">
+              </li>
+
+              <!-- Theme toggle -->
+              <li>
                 <button class="dropdown-item d-flex align-items-center gap-2" id="themeToggleItem" type="button">
                   <span id="themeToggleIcon" aria-hidden="true">🌙</span>
                   <span id="themeToggleText">Dark mode</span>
                 </button>
               </li>
+
+              <!-- Account settings (hidden for Guest by main.js) -->
+              <li><a class="dropdown-item" id="navAccountSettings" href="account.html">Account settings</a></li>
+
               <li>
                 <hr class="dropdown-divider">
               </li>
+
+              <!-- Same slot for Sign in (Guest) / Sign out (Signed-in). Text is set by main.js -->
               <li><button class="dropdown-item text-danger" id="navSignout" type="button">Sign out</button></li>
             </ul>
           </li>
+
         </ul>
       </div>
     </div>
   </nav>
 
+  <!-- Main -->
   <main class="container py-5">
-    <h1 class="mb-3">Famous Street Food Spots</h1>
-    <p class="text-muted">Demo using Google Maps embed (no API key required for simple iframes).</p>
-    <div class="ratio ratio-16x9 mb-3">
-      <iframe src="https://www.google.com/maps?q=Penang%20street%20food&output=embed" loading="lazy"></iframe>
+    <h1 id="mapTitle" class="mb-3">Explore Street Food Map</h1>
+    <p id="mapSub" class="text-muted">Find famous spots around the world.</p>
+    <div id="geoStatus" class="small text-secondary mb-2"></div>
+
+    <div id="mapWrap" class="ratio ratio-16x9 mb-3">
+      <iframe id="mapFrame" src="https://www.google.com/maps?q=street%20food&output=embed" loading="lazy"></iframe>
     </div>
-    <div class="ratio ratio-16x9">
-      <iframe src="https://www.google.com/maps?q=Bangkok%20street%20food&output=embed" loading="lazy"></iframe>
+
+    <!-- Default demo examples -->
+    <div id="defaultExamples" class="row g-3">
+      <div class="col-md-6">
+        <div class="ratio ratio-16x9">
+          <iframe src="https://www.google.com/maps?q=Penang%20street%20food&output=embed" loading="lazy"></iframe>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="ratio ratio-16x9">
+          <iframe src="https://www.google.com/maps?q=Bangkok%20street%20food&output=embed" loading="lazy"></iframe>
+        </div>
+      </div>
+    </div>
+
+    <div id="geoActions" class="d-none">
+      <button id="retryGeo" class="btn btn-sm btn-outline-primary">Use my location</button>
     </div>
   </main>
-  <footer class="border-top py-4 text-center text-muted">
-  <small>© 2025 Explore Street Food</small>
-</footer>
+
+  <!-- Footer -->
+  <footer class="py-4 bg-body-tertiary border-top mt-auto">
+    <div class="container text-center small text-secondary">
+      © 2025 Explore Street Food
+      &nbsp;|&nbsp;
+      <a href="about.html" class="text-decoration-none">Group 61</a>
+    </div>
+  </footer>
+
+
+  <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="main.js"></script>
+
+  <script>
+    const COUNTRY_CENTER = {
+      // Country centers (used when a specific country is passed in URL)
+      "Japan": { lat: 36.2048, lng: 138.2529, z: 5 },
+      "Thailand": { lat: 15.8700, lng: 100.9925, z: 5 },
+      "China": { lat: 35.8617, lng: 104.1954, z: 4 },
+      "Spain": { lat: 40.4637, lng: -3.7492, z: 5 },
+      "France": { lat: 46.2276, lng: 2.2137, z: 5 },
+      "Germany": { lat: 51.1657, lng: 10.4515, z: 5 },
+      "Mexico": { lat: 23.6345, lng: -102.5528, z: 5 },
+      "Canada": { lat: 56.1304, lng: -106.3468, z: 3 },
+      "United States": { lat: 39.8283, lng: -98.5795, z: 4 },
+      "Peru": { lat: -9.1900, lng: -75.0152, z: 5 },
+      "Argentina": { lat: -38.4161, lng: -63.6167, z: 4 },
+      "Chile": { lat: -35.6751, lng: -71.5430, z: 4 },
+      "Colombia": { lat: 4.5709, lng: -74.2973, z: 5 },
+      "Brazil": { lat: -14.2350, lng: -51.9253, z: 4 },
+      "Morocco": { lat: 31.7917, lng: -7.0926, z: 5 },
+      "Turkey": { lat: 38.9637, lng: 35.2433, z: 5 },
+      "Vietnam": { lat: 14.0583, lng: 108.2772, z: 5 },
+      "Indonesia": { lat: -0.7893, lng: 113.9213, z: 4 },
+      "South Korea": { lat: 35.9078, lng: 127.7669, z: 6 },
+      "Greece": { lat: 39.0742, lng: 21.8243, z: 6 },
+      "Italy": { lat: 41.8719, lng: 12.5674, z: 5 },
+      "India": { lat: 20.5937, lng: 78.9629, z: 4 },
+      "Ireland": { lat: 53.4129, lng: -8.2439, z: 6 },
+      "Portugal": { lat: 39.3999, lng: -8.2245, z: 6 },
+      "Poland": { lat: 51.9194, lng: 19.1451, z: 6 },
+      "Russia": { lat: 61.5240, lng: 105.3188, z: 3 },
+      "Lebanon": { lat: 33.8547, lng: 35.8623, z: 8 },
+      "Kenya": { lat: -0.0236, lng: 37.9062, z: 6 },
+      "Egypt": { lat: 26.8206, lng: 30.8025, z: 5 },
+      "South Africa": { lat: -30.5595, lng: 22.9375, z: 5 },
+      "Australia": { lat: -25.2744, lng: 133.7751, z: 4 },
+      "New Zealand": { lat: -40.9006, lng: 174.8860, z: 5 },
+      "Samoa": { lat: -13.7590, lng: -172.1046, z: 7 },
+      "Tunisia": { lat: 33.8869, lng: 9.5375, z: 6 },
+      "Hungary": { lat: 47.1625, lng: 19.5033, z: 6 },
+      "Iran": { lat: 32.4279, lng: 53.6880, z: 5 },
+      "Syria": { lat: 34.8021, lng: 38.9968, z: 7 },
+      "Bangladesh": { lat: 23.6850, lng: 90.3563, z: 6 },
+      "Pakistan": { lat: 30.3753, lng: 69.3451, z: 5 },
+      "Singapore": { lat: 1.3521, lng: 103.8198, z: 11 },
+      "Taiwan": { lat: 23.6978, lng: 120.9605, z: 7 },
+      "Malaysia": { lat: 4.2105, lng: 101.9758, z: 5 }
+    };
+
+    // State centroids for Malaysia to improve state targeting
+    const MY_STATE_CENTER = {
+      "penang": { lat: 5.4164, lng: 100.3327, z: 10 },
+      "malacca": { lat: 2.1896, lng: 102.2501, z: 11 },
+      "selangor": { lat: 3.0738, lng: 101.5183, z: 10 },
+      "johor": { lat: 1.4854, lng: 103.7618, z: 9 },
+      "perlis": { lat: 6.4443, lng: 100.2048, z: 10 },
+      "kedah": { lat: 6.1184, lng: 100.3685, z: 9 },
+      "negeri-sembilan": { lat: 2.7258, lng: 102.1103, z: 9 },
+      "kelantan": { lat: 5.3702, lng: 102.2990, z: 9 },
+      "terengganu": { lat: 5.3117, lng: 103.1324, z: 9 },
+      "perak": { lat: 4.5921, lng: 101.0901, z: 9 },
+      "pahang": { lat: 3.8126, lng: 103.3256, z: 8 },
+      "sabah": { lat: 5.9780, lng: 116.0753, z: 7 },
+      "sarawak": { lat: 1.5533, lng: 110.3592, z: 7 }
+    };
+
+    (function renderMap() {
+      const u = new URL(location.href);
+      const food = (u.searchParams.get('food') || '').trim();
+      const country = (u.searchParams.get('country') || '').trim();
+      const state = (u.searchParams.get('state') || '').trim();
+
+      const h1 = document.getElementById('mapTitle');
+      const sub = document.getElementById('mapSub');
+      const frame = document.getElementById('mapFrame');
+      const examples = document.getElementById('defaultExamples');
+
+      // Default page: try geolocation first
+      if (!food && !country && !state) {
+        h1.textContent = 'Explore Street Food Near You';
+        sub.textContent = 'Showing nearby popular street food spots';
+        examples.style.display = 'none';
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(pos => {
+            const lat = pos.coords.latitude;
+            const lng = pos.coords.longitude;
+            frame.src = `https://www.google.com/maps?q=street+food&ll=${lat},${lng}&z=13&output=embed`;
+          }, () => {
+            // fallback if user blocks location
+            frame.src = 'https://www.google.com/maps?q=street%20food&output=embed';
+            examples.style.display = '';
+          });
+        } else {
+          // geolocation not supported
+          frame.src = 'https://www.google.com/maps?q=street%20food&output=embed';
+          examples.style.display = '';
+        }
+        return;
+      }
+
+      // ----- existing logic for Malaysia / Global -----
+      examples.style.display = 'none';
+      h1.textContent = food || 'Street Food';
+      if (state && country) sub.textContent = `${state}, ${country}`;
+      else if (country) sub.textContent = country;
+      else sub.textContent = '—';
+
+      const isMalaysia = country.toLowerCase() === 'malaysia';
+      let src = '';
+
+      if (isMalaysia) {
+        const st = state.toLowerCase();
+        const center = (st && MY_STATE_CENTER[st]) ? MY_STATE_CENTER[st] : COUNTRY_CENTER['Malaysia'];
+        const q = [food, state, country, 'street food'].filter(Boolean).join(' ');
+        src = `https://www.google.com/maps?hl=en&q=${encodeURIComponent(q)}&ll=${center.lat},${center.lng}&z=${center.z}&output=embed`;
+      } else if (country) {
+        const center = COUNTRY_CENTER[country] || null;
+        if (center) {
+          const q = `${food} in ${country}`;
+          src = `https://www.google.com/maps?hl=en&q=${encodeURIComponent(q)}&ll=${center.lat},${center.lng}&z=${center.z}&output=embed`;
+        } else {
+          const q = [food, country, 'street food', '-Malaysia'].filter(Boolean).join(' ');
+          src = `https://www.google.com/maps?hl=en&q=${encodeURIComponent(q)}&output=embed`;
+        }
+      } else {
+        const q = [food, 'street food'].join(' ');
+        src = `https://www.google.com/maps?hl=en&q=${encodeURIComponent(q)}&output=embed`;
+      }
+
+      frame.src = src;
+    })();
+  </script>
+
 </body>
+
 </html>

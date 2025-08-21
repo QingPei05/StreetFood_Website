@@ -8,7 +8,7 @@
     if (mode === 'dark') { btn.textContent = '☀︎ Light Mode'; btn.title = 'Switch to light mode'; }
     else { btn.textContent = '⏾ Dark Mode'; btn.title = 'Switch to dark mode'; }
   }
-  
+
   function syncDropdownLabel(mode){
     const txt = document.getElementById('themeToggleText');
     const ico = document.getElementById('themeToggleIcon');
@@ -42,9 +42,9 @@
 })();
 
 // ========== Navbar active highlighting ==========
-$(function(){
+$(function () {
   const path = (window.location.pathname.split('/').pop() || 'index.html').toLowerCase();
-  $('.navbar-nav a').each(function(){
+  $('.navbar-nav a').each(function () {
     const href = ($(this).attr('href') || '').toLowerCase();
     if (href === path) $(this).addClass('active');
   });
@@ -77,12 +77,12 @@ $(function () {
   });
 });
 
-/* ====== Home page Hero fade carousel (方案 A) ====== */
+
+// ====== Home page Hero fade carousel ======
 document.addEventListener('DOMContentLoaded', () => {
   const wrap = document.getElementById('heroSlides');
   if (!wrap) return; // only on index.html
 
-  // Replace or extend with your own images
   const heroImages = [
     'https://www.vegkit.com/wp-content/uploads/sites/2/2023/02/Homestyle_Eggplant_Chickpea_Curry.jpg',
     'https://sweetkitchencravings.com/wp-content/uploads/2023/09/IMG_0946-copy-2.jpg',

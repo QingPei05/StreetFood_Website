@@ -53,6 +53,8 @@ $(function () {
 // ========== Favorites helpers ==========
 function getFavs() { try { return JSON.parse(localStorage.getItem('favorites') || '[]'); } catch { return []; } }
 function setFavs(arr) { localStorage.setItem('favorites', JSON.stringify(arr)); }
+function getFavMeta(){ try { return JSON.parse(localStorage.getItem('favorites_meta_v1') || '{}'); } catch { return {}; } }
+function setFavMeta(m){ localStorage.setItem('favorites_meta_v1', JSON.stringify(m || {})); }
 
 function markAdded(btn) {
   btn.classList.add('btn-added');
@@ -64,6 +66,24 @@ function markAdded(btn) {
 function addToFavorites(name, btnEl) {
   const favs = getFavs();
   if (!favs.includes(name)) { favs.push(name); setFavs(favs); }
+
+// try to collect metadata from the current card (for site items)
+try {
+    if (btnEl) {
+      const card = btnEl.closest('.card');
+      const img = card?.querySelector('img.card-img-top')?.src || '';
+      const country = card?.querySelector('.text-muted')?.textContent?.trim() || '';
+      const meta = getFavMeta();
+      // only fill fields if not already present
+      meta[name] = meta[name] || {};
+      meta[name].img = meta[name].img || img;
+      meta[name].country = meta[name].country || country;
+      meta[name].link = meta[name].link || '#';
+      meta[name].source = meta[name].source || 'site';
+      setFavMeta(meta);
+    }
+  } catch {}
+
   if (btnEl) markAdded(btnEl);
 }
 
@@ -76,7 +96,6 @@ $(function () {
     else btn.addEventListener('click', () => addToFavorites(food, btn));
   });
 });
-
 
 // ====== Home page Hero fade carousel ======
 document.addEventListener('DOMContentLoaded', () => {

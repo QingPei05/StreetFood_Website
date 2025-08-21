@@ -12,11 +12,23 @@
   </style>
 </head>
 <body>
+  <!-- Auth Gate (require sign in on this page) -->
+  <script>
+    (function gate() {
+      const key = 'session_user_v1';
+      if (!sessionStorage.getItem(key)) {
+        sessionStorage.setItem(key, 'Guest');
+      }
+    })();
+  </script>
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top shadow-sm">
     <div class="container">
       <a class="navbar-brand fw-bold" href="index.html">Explore Street Food</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav"><span class="navbar-toggler-icon"></span></button>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
       <div class="collapse navbar-collapse" id="nav">
         <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
           <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
@@ -28,8 +40,28 @@
           <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
           <li class="nav-item"><a class="nav-link" href="quiz.html">Quiz</a></li>
           <li class="nav-item"><a class="nav-link" href="map.html">Map</a></li>
-          <li class="nav-item ms-lg-2">
-            <button id="themeToggle" class="btn btn-sm btn-outline-secondary" title="Toggle theme">⏾</button>
+
+          <!-- Avatar dropdown -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle p-0" href="#" data-bs-toggle="dropdown" aria-expanded="false"
+              id="navUser" title="Hi, Guest" aria-label="Hi, Guest">
+              <img src="profile-user-svgrepo-com.svg" alt="User Avatar" class="rounded-circle"
+                style="width:32px;height:32px;object-fit:cover;">
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="account.html">Account settings</a></li>
+              <li>
+                <!-- Dark/Light mode -->
+                <button class="dropdown-item d-flex align-items-center gap-2" id="themeToggleItem" type="button">
+                  <span id="themeToggleIcon" aria-hidden="true">🌙</span>
+                  <span id="themeToggleText">Dark mode</span>
+                </button>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><button class="dropdown-item text-danger" id="navSignout" type="button">Sign out</button></li>
+            </ul>
           </li>
         </ul>
       </div>

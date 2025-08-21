@@ -98,6 +98,32 @@ html[data-bs-theme="dark"] .card.card-plain {
   transform: none !important;
 }
 
+/* === Cards (Light Mode default) === */
+.card {
+  border: 1px solid rgba(0,0,0,.125);
+  border-radius: .5rem;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(255, 87, 34, 0.2); /* orange shadow */
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 6px 16px rgba(255, 87, 34, 0.35);
+}
+
+/* === Dark Mode Cards === */
+html[data-bs-theme="dark"] .card {
+  background: #1c1c1c; /* dark gray background */
+  color: #eaeaea;      /* text color */
+  box-shadow: 0 4px 12px rgba(255, 87, 34, 0.15);
+}
+
+html[data-bs-theme="dark"] .card:hover {
+  box-shadow: 0 6px 16px rgba(255, 87, 34, 0.4);
+}
+
+
 /* Badge (API) */
 .badge-corner {
   position: absolute;

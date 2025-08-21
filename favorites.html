@@ -52,8 +52,6 @@
             </a>
 
             <ul class="dropdown-menu dropdown-menu-end">
-
-              <!-- Centered user header (auto-hidden for Guest by main.js) -->
               <li class="dropdown-userinfo text-center py-2">
                 <div id="ddFullName" class="fw-bold">Guest</div>
                 <div id="ddUsername" class="text-muted">@guest</div>
@@ -62,7 +60,6 @@
                 <hr class="dropdown-divider">
               </li>
 
-              <!-- Theme toggle -->
               <li>
                 <button class="dropdown-item d-flex align-items-center gap-2" id="themeToggleItem" type="button">
                   <span id="themeToggleIcon" aria-hidden="true">🌙</span>
@@ -70,14 +67,10 @@
                 </button>
               </li>
 
-              <!-- Account settings (hidden for Guest by main.js) -->
               <li><a class="dropdown-item" id="navAccountSettings" href="account.html">Account settings</a></li>
-
               <li>
                 <hr class="dropdown-divider">
               </li>
-
-              <!-- Same slot for Sign in (Guest) / Sign out (Signed-in). Text is set by main.js -->
               <li><button class="dropdown-item text-danger" id="navSignout" type="button">Sign out</button></li>
             </ul>
           </li>
@@ -107,7 +100,6 @@
     </div>
   </footer>
 
-
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="main.js"></script>
@@ -117,54 +109,64 @@
       '<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360"><rect width="100%" height="100%" fill="#e9ecef"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="20" fill="#6c757d">No image</text></svg>'
     );
 
-    // Existing favorites array (names only)
     function getFavs() { try { return JSON.parse(localStorage.getItem('favorites') || '[]'); } catch { return []; } }
     function setFavs(a) { localStorage.setItem('favorites', JSON.stringify(a || [])); }
 
-    // Metadata map saved by search.html for API items
     function getFavMeta() { try { return JSON.parse(localStorage.getItem('favorites_meta_v1') || '{}'); } catch { return {}; } }
     function setFavMeta(m) { localStorage.setItem('favorites_meta_v1', JSON.stringify(m || {})); }
 
-    // Site catalog (Malaysia/Global)
     function getSiteCatalog() { try { return JSON.parse(localStorage.getItem('catalog_all_v1') || '[]'); } catch { return []; } }
 
     const GRID = document.getElementById('favGrid');
     const EMPTY = document.getElementById('empty');
     const CLEAR = document.getElementById('clearAll');
 
+    function prettyState(s) {
+      if (!s) return '';
+      return s.split(/[- ]+/).map(x => x.charAt(0).toUpperCase() + x.slice(1)).join(' ');
+    }
+
     function card(name, meta) {
       const img = meta?.img || FALLBACK_IMG;
       const link = meta?.link || '#';
       const country = meta?.country || '';
-      const state = meta?.state || '';
-      const source = meta?.source || '';
+      const stateRaw = meta?.state || '';
+      const state = prettyState(stateRaw);
+      const source = meta?.source || 'site';
       const badge = source === 'api' ? '<span class="badge text-bg-secondary badge-corner">API</span>' : '';
 
-      return `<div class="col-sm-6 col-md-4 col-lg-3">
-    <div class="card h-100 position-relative">
-      ${badge}
-      <img class="card-img-top" src="${img}" alt="${name}" onerror="this.src='${FALLBACK_IMG}'">
-      <div class="card-body d-flex flex-column">
-        <h6 class="card-title mb-1"><a class="text-decoration-none" href="${link}">${name}</a></h6>
-        ${country ? `<small class="text-muted mb-2">${country}</small>` : `<small class="text-muted mb-2">From site</small>`}
-        ${state ? `<div class="small text-muted">State: ${state}</div>` : ''}
+      // Always show “From site”, and then show Country/State lines if we have them
+      const locLines = [
+        '<small class="text-muted mb-1">From site</small>',
+        country ? `<small class="text-muted">Country: ${country}</small>` : '',
+        state ? `<small class="text-muted">State: ${state}</small>` : ''
+      ].filter(Boolean).join('<br>');
 
-        <div class="mt-auto d-grid gap-2">
-          <div class="d-flex gap-2">
-            <button class="btn btn-outline-secondary btn-sm" data-map="${name}" data-country="${country}">View on Map</button>
-            <button class="btn btn-outline-danger btn-sm" data-remove="${name}">Remove</button>
+      return `<div class="col-sm-6 col-md-4 col-lg-3">
+        <div class="card h-100 position-relative">
+          ${badge}
+          <img class="card-img-top" src="${img}" alt="${name}" onerror="this.src='${FALLBACK_IMG}'">
+          <div class="card-body d-flex flex-column">
+            <h6 class="card-title mb-2"><a class="text-decoration-none" href="${link}">${name}</a></h6>
+            ${locLines}
+            <div class="mt-auto d-grid gap-2 pt-2">
+              <div class="d-flex gap-2">
+                <button class="btn btn-outline-secondary btn-sm"
+                  data-map="${name}"
+                  data-country="${country}" data-state="${stateRaw}">View on Map</button>
+                <button class="btn btn-outline-danger btn-sm" data-remove="${name}">Remove</button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>`;
+      </div>`;
     }
 
     function render() {
       const names = getFavs();
       const meta = getFavMeta();
       const site = getSiteCatalog();
-      const siteMap = new Map(site.map(x => [x.name, x])); // fall back for Malaysia/Global
+      const siteMap = new Map(site.map(x => [x.name, x])); // fallback for Malaysia/Global
 
       if (!names.length) {
         EMPTY.classList.remove('d-none');
@@ -174,12 +176,10 @@
       EMPTY.classList.add('d-none');
 
       GRID.innerHTML = names.map(n => {
-        // prefer API meta; else site catalog; else minimal
         const m = meta[n] || siteMap.get(n) || null;
         return card(n, m);
       }).join('');
 
-      // Remove handlers
       GRID.querySelectorAll('button[data-remove]').forEach(btn => {
         btn.addEventListener('click', () => {
           const name = btn.getAttribute('data-remove');
@@ -190,18 +190,28 @@
         });
       });
 
-      // View on Map handlers
       GRID.querySelectorAll('button[data-map]').forEach(btn => {
         btn.addEventListener('click', () => {
           const name = btn.getAttribute('data-map') || 'street food';
-          const country = btn.getAttribute('data-country') || '';
+          let country = btn.getAttribute('data-country') || '';
+          let state = btn.getAttribute('data-state') || '';
+
+          // fallback to stored meta/site catalog if attributes are empty
+          if (!country || !state) {
+            const mm = getFavMeta()[name];
+            const ss = (getSiteCatalog().find(x => x.name === name) || {});
+            country = country || mm?.country || ss?.country || '';
+            state = state || mm?.state || ss?.state || '';
+          }
+          if (!country && state) country = 'Malaysia';
+
           const url = new URL('map.html', location.href);
           url.searchParams.set('food', name);
           if (country) url.searchParams.set('country', country);
+          if (state) url.searchParams.set('state', state);
           location.href = url.toString();
         });
       });
-
     }
 
     CLEAR.addEventListener('click', () => {

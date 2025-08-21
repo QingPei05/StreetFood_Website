@@ -135,7 +135,7 @@
           <h2 class="h5 mb-3 text-center">Sign Up</h2>
           <form id="signupForm" novalidate>
             <div class="mb-3">
-              <label for="su_fullname" class="form-label">Full Name</label>
+              <label for="su_fullname" class="form-label">name</label>
               <input type="text" class="form-control" id="su_fullname" required>
               <div class="invalid-feedback">Please enter your full name.</div>
             </div>
@@ -237,6 +237,8 @@
 
         guestName.textContent = u;
         signedName.textContent = u;
+        const accMap = loadAccounts();
+        signedName.textContent = (accMap[u]?.fullName || u);
 
         guestNotice.classList.toggle('d-none', !isGuest);
         signinCard.classList.toggle('d-none', !isGuest);

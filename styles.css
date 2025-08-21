@@ -3,14 +3,30 @@
 }
 
 /* Make footer sit at bottom even on short pages */
-html, body { height: 100%; }
-body { display: flex; flex-direction: column; margin: 0; }
-main { flex: 1; }
+html,
+body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+main {
+  flex: 1;
+}
 
 /* Light/Dark via Bootstrap 5.3 data-bs-theme */
-html[data-bs-theme="dark"] body { background-color: #111; color: #eaeaea; }
+html[data-bs-theme="dark"] body {
+  background-color: #111;
+  color: #eaeaea;
+}
 
-.navbar-brand { color: var(--brand) !important; }
+.navbar-brand {
+  color: var(--brand) !important;
+}
 
 /* Active nav link in orange */
 .navbar-nav .nav-link.active,
@@ -21,50 +37,146 @@ html[data-bs-theme="dark"] body { background-color: #111; color: #eaeaea; }
 }
 
 /* Cards */
-.card-img-top { object-fit: cover; height: 160px; }
+.card-img-top {
+  object-fit: cover;
+  height: 160px;
+}
 
 /* Badge (API) */
 .badge-corner {
-      position: absolute;
-      top: .5rem;
-      right: .5rem;
+  position: absolute;
+  top: .5rem;
+  right: .5rem;
 }
 
 /* Buttons */
-.btn-primary { background-color: var(--brand); border: none; }
-.btn-primary:hover { background-color: #e64a19; }
+.btn-primary {
+  background-color: var(--brand);
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #e64a19;
+}
 
 /* Added-to-favorites state */
 .btn-added {
-  background-color: #6c757d !important; /* Bootstrap secondary gray */
+  background-color: #6c757d !important;
+  /* Bootstrap secondary gray */
   color: #fff !important;
   border: none !important;
 }
 
 /* Footer */
-footer { background: #f0f0f0; }
-html[data-bs-theme="dark"] footer { background: #1b1b1b; }
+footer {
+  background: #f0f0f0;
+}
+
+html[data-bs-theme="dark"] footer {
+  background: #1b1b1b;
+}
 
 /* === Hero (fade carousel) === */
-.hero { 
-  position: relative; 
-  min-height: 55vh; 
-  display: flex; 
-  align-items: center; 
-  color: #fff; 
-  text-shadow: 1px 1px 3px rgba(0,0,0,.5);
+.hero {
+  position: relative;
+  min-height: 55vh;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, .5);
 }
-.hero-slides { position: absolute; inset: 0; overflow: hidden; }
+
+.hero-slides {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
 .hero-slides .slide {
-  position: absolute; inset: 0;
-  background-size: cover; background-position: center;
-  opacity: 0; transition: opacity .8s ease-in-out;
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  transition: opacity .8s ease-in-out;
 }
-.hero-slides .slide.active { opacity: 1; }
+
+.hero-slides .slide.active {
+  opacity: 1;
+}
 
 /* Optional readability overlay */
 .hero::after {
-  content: ""; position: absolute; inset: 0;
-  background: linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.18));
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0, 0, 0, .18), rgba(0, 0, 0, .18));
   pointer-events: none;
+}
+
+/* Social Card styling */
+.social-card {
+  --radius: 16px;
+  --shadow: 0 10px 30px rgba(0, 0, 0, .10);
+  --shadow-hover: 0 14px 36px rgba(0, 0, 0, .14);
+  border: 0;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: linear-gradient(135deg, #ffffff, #fafafa);
+  box-shadow: var(--shadow);
+  max-width: 420px;
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+
+.social-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-hover);
+}
+
+.social-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: #1877F2;
+  /* Facebook Blue */
+  flex: 0 0 auto;
+}
+
+.social-avatar svg {
+  width: 32px;
+  height: 32px;
+  color: #fff;
+}
+
+.social-meta .title {
+  font-weight: 700;
+  color: #111;
+  margin-bottom: .15rem;
+}
+
+.social-meta .sub {
+  color: #6c757d;
+  font-size: .9rem;
+}
+
+.social-open {
+  border-radius: 99px;
+  padding: .45rem .9rem;
+  font-weight: 600;
+}
+
+@media (prefers-color-scheme: dark) {
+  .social-card {
+    background: linear-gradient(135deg, #151515, #0f0f0f);
+  }
+
+  .social-meta .title {
+    color: #eaeaea;
+  }
+
+  .social-meta .sub {
+    color: #b4b4b4;
+  }
 }

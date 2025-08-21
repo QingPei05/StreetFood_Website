@@ -23,6 +23,13 @@ html[data-bs-theme="dark"] body { background-color: #111; color: #eaeaea; }
 /* Cards */
 .card-img-top { object-fit: cover; height: 160px; }
 
+/* Badge (API) */
+.badge-corner {
+      position: absolute;
+      top: .5rem;
+      right: .5rem;
+}
+
 /* Buttons */
 .btn-primary { background-color: var(--brand); border: none; }
 .btn-primary:hover { background-color: #e64a19; }

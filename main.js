@@ -119,10 +119,12 @@ function renderAuthDropdown() {
       btn.addEventListener('click', () => {
         setSessionUser('Guest');
         localStorage.removeItem(LAST_USER_KEY);
-        renderAuthDropdown();
-        // stay on page
+        // optional UI refresh, then go to account page
+        try { renderAuthDropdown(); } catch { }
+        location.href = 'account.html';
       });
     }
+
   }
 }
 
@@ -284,14 +286,30 @@ function bindFavourites(root, options = {}) {
 
 /* ===== Hero (homepage slideshow; safe no-op if not present) ===== */
 function initHeroSlides() {
-  const slides = $all('.hero-slides .slide');
-  if (!slides.length) return;
-  let i = 0;
-  slides[0].classList.add('active');
+  const wrap = $('#heroSlides');
+  if (!wrap) return;
+
+  const slides = [
+    { img: 'https://www.vegkit.com/wp-content/uploads/sites/2/2023/02/Homestyle_Eggplant_Chickpea_Curry.jpg', alt: 'Eggplant Chickpea Curry' },
+    { img: 'https://sweetkitchencravings.com/wp-content/uploads/2023/09/IMG_0946-copy-2.jpg', alt: 'Peaches & Cream Crumb Cake' },
+    { img: 'https://sweetkitchencravings.com/wp-content/uploads/2023/09/IMG_5259.jpg', alt: 'Golden Syrup Dumplings' },
+    { img: 'https://cdn.vegkit.com/wp-content/uploads/sites/2/2022/10/19151142/VegKit_Mushroom_Bake.jpg', alt: 'Mushroom Bake' },
+    { img: 'https://sweetkitchencravings.com/wp-content/uploads/2024/03/IMG_5807-copy.jpg', alt: 'Berry Chantilly Cupcakes' },
+    { img: 'https://sweetkitchencravings.com/wp-content/uploads/2024/02/IMG_3389-2-1536x2048.jpg', alt: 'Mini Orange Cheesecakes' }
+  ];
+
+  $('#heroSlides').innerHTML = slides.map((s, i) =>
+    `<div class="slide${i === 0 ? ' active' : ''}" role="img" aria-label="${s.alt}"
+       style="background-image:url('${s.img}')"></div>`).join('');
+
+  let idx = 0;
+  const nodes = document.querySelectorAll('#heroSlides .slide');
+  if (nodes.length <= 1) return;
+
   setInterval(() => {
-    slides[i].classList.remove('active');
-    i = (i + 1) % slides.length;
-    slides[i].classList.add('active');
+    nodes[idx].classList.remove('active');
+    idx = (idx + 1) % nodes.length;
+    nodes[idx].classList.add('active');
   }, 4000);
 }
 
@@ -336,4 +354,3 @@ window.addEventListener('storage', (e) => {
     renderAuthDropdown();
   }
 });
-

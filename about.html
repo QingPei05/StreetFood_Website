@@ -11,82 +11,11 @@
 </head>
 
 <body>
-  <!-- Auth Gate (require sign in on this page) -->
-  <script>
-    (function gate() {
-      const key = 'session_user_v1';
-      if (!sessionStorage.getItem(key)) {
-        sessionStorage.setItem(key, 'Guest');
-      }
-    })();
-  </script>
+  <!-- Shared Auth Gate -->
+  <script src="scripts/auth-gate.js"></script>
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="index.html">Explore Street Food</a>
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain"
-        aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navMain">
-        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
-
-          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="malaysia.html">Malaysia</a></li>
-          <li class="nav-item"><a class="nav-link" href="global.html">Global</a></li>
-          <li class="nav-item"><a class="nav-link" href="favourites.html">Favourites</a></li>
-          <li class="nav-item"><a class="nav-link" href="search.html">Search</a></li>
-          <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
-          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-          <li class="nav-item"><a class="nav-link" href="quiz.html">Quiz</a></li>
-          <li class="nav-item"><a class="nav-link" href="map.html">Map</a></li>
-
-          <!-- Avatar dropdown -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle p-0" href="#" data-bs-toggle="dropdown" aria-expanded="false"
-              id="navUser" title="Hi, Guest" aria-label="Hi, Guest">
-              <img src="profile-user-svgrepo-com.svg" alt="User Avatar" class="rounded-circle"
-                style="width:32px;height:32px;object-fit:cover;">
-            </a>
-
-            <ul class="dropdown-menu dropdown-menu-end">
-
-              <!-- Centered user header (auto-hidden for Guest by main.js) -->
-              <li class="dropdown-userinfo text-center py-2">
-                <div id="ddFullName" class="fw-bold">Guest</div>
-                <div id="ddUsername" class="text-muted">@guest</div>
-              </li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-
-              <!-- Theme toggle -->
-              <li>
-                <button class="dropdown-item d-flex align-items-center gap-2" id="themeToggleItem" type="button">
-                  <span id="themeToggleIcon" aria-hidden="true">🌙</span>
-                  <span id="themeToggleText">Dark mode</span>
-                </button>
-              </li>
-
-              <!-- Account settings (hidden for Guest by main.js) -->
-              <li><a class="dropdown-item" id="navAccountSettings" href="account.html">Account settings</a></li>
-
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-
-              <!-- Same slot for Sign in (Guest) / Sign out (Signed-in). Text is set by main.js -->
-              <li><button class="dropdown-item text-danger" id="navSignout" type="button">Sign out</button></li>
-            </ul>
-          </li>
-
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <div data-include="partials/navbar.html"></div>
 
   <main class="container py-5">
     <section class="text-center mb-5">
@@ -141,14 +70,14 @@
         <div class="col-md-4">
           <div class="p-4 bg-body-tertiary rounded-3 h-100">
             <h3 class="h6 mb-2">Community Touch</h3>
-            <p class="mb-0 small">Lightweight reviews and a playful quiz—because food should be fun.</p>
+            <p class="mb-0 small">Lightweight reviews and engaging features—because food should be fun.</p>
           </div>
         </div>
       </div>
     </section>
 
     <!-- Team -->
-    <section>
+    <section class="about-team">
       <h2 class="h4 mb-3">Team</h2>
       <div class="row row-cols-1 row-cols-md-4 g-3">
         <!-- 1 -->
@@ -253,16 +182,11 @@
 
   </main>
 
-  <footer class="py-4 bg-body-tertiary border-top mt-auto">
-  <div class="container text-center small text-secondary">
-    © 2025 Explore Street Food 
-    &nbsp;|&nbsp; 
-    <a href="about.html" class="text-decoration-none">Group 61</a>
-  </div>
-</footer>
+  <div data-include="partials/footer.html"></div>
 
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="partials/loader.js"></script>
   <script src="main.js"></script>
 </body>
 

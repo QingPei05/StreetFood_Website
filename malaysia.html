@@ -12,82 +12,11 @@
 </head>
 
 <body>
-  <!-- Auth Gate (require sign in on this page) -->
-  <script>
-    (function gate() {
-      const key = 'session_user_v1';
-      if (!sessionStorage.getItem(key)) {
-        sessionStorage.setItem(key, 'Guest');
-      }
-    })();
-  </script>
+  <!-- Shared Auth Gate -->
+  <script src="scripts/auth-gate.js"></script>
 
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top">
-    <div class="container">
-      <a class="navbar-brand fw-bold" href="index.html">Explore Street Food</a>
-
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMain"
-        aria-controls="navMain" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navMain">
-        <ul class="navbar-nav ms-auto align-items-lg-center gap-lg-2">
-
-          <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-          <li class="nav-item"><a class="nav-link" href="malaysia.html">Malaysia</a></li>
-          <li class="nav-item"><a class="nav-link" href="global.html">Global</a></li>
-          <li class="nav-item"><a class="nav-link" href="favourites.html">Favourites</a></li>
-          <li class="nav-item"><a class="nav-link" href="search.html">Search</a></li>
-          <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
-          <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
-          <li class="nav-item"><a class="nav-link" href="quiz.html">Quiz</a></li>
-          <li class="nav-item"><a class="nav-link" href="map.html">Map</a></li>
-
-          <!-- Avatar dropdown -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle p-0" href="#" data-bs-toggle="dropdown" aria-expanded="false"
-              id="navUser" title="Hi, Guest" aria-label="Hi, Guest">
-              <img src="profile-user-svgrepo-com.svg" alt="User Avatar" class="rounded-circle"
-                style="width:32px;height:32px;object-fit:cover;">
-            </a>
-
-            <ul class="dropdown-menu dropdown-menu-end">
-
-              <!-- Centered user header (auto-hidden for Guest by main.js) -->
-              <li class="dropdown-userinfo text-center py-2">
-                <div id="ddFullName" class="fw-bold">Guest</div>
-                <div id="ddUsername" class="text-muted">@guest</div>
-              </li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-
-              <!-- Theme toggle -->
-              <li>
-                <button class="dropdown-item d-flex align-items-center gap-2" id="themeToggleItem" type="button">
-                  <span id="themeToggleIcon" aria-hidden="true">🌙</span>
-                  <span id="themeToggleText">Dark mode</span>
-                </button>
-              </li>
-
-              <!-- Account settings (hidden for Guest by main.js) -->
-              <li><a class="dropdown-item" id="navAccountSettings" href="account.html">Account settings</a></li>
-
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-
-              <!-- Same slot for Sign in (Guest) / Sign out (Signed-in). Text is set by main.js -->
-              <li><button class="dropdown-item text-danger" id="navSignout" type="button">Sign out</button></li>
-            </ul>
-          </li>
-
-        </ul>
-      </div>
-    </div>
-  </nav>
+  <div data-include="partials/navbar.html"></div>
 
   <!-- Main -->
   <main class="container py-5">
@@ -190,7 +119,8 @@
           <div class="card-body">
             <h5 class="card-title">Cendol</h5>
             <p class="card-text">Shaved ice, coconut milk, gula melaka, and green jelly — iconic Malaccan dessert.</p>
-            <button class="btn btn-outline-primary fav-btn" data-food="Cendol" data-country="Malaysia" aria-label="Add Cendol to favourites">Add
+            <button class="btn btn-outline-primary fav-btn" data-food="Cendol" data-country="Malaysia"
+              aria-label="Add Cendol to favourites">Add
               to favourites</button>
           </div>
         </div>
@@ -352,7 +282,8 @@
           <div class="card-body">
             <h5 class="card-title">Lemang</h5>
             <p class="card-text">Glutinous rice cooked in bamboo with coconut milk; festive favourite.</p>
-            <button class="btn btn-outline-primary fav-btn" data-food="Lemang"  data-country="Malaysia" aria-label="Add Lemang to favourites">Add
+            <button class="btn btn-outline-primary fav-btn" data-food="Lemang" data-country="Malaysia"
+              aria-label="Add Lemang to favourites">Add
               to favourites</button>
           </div>
         </div>
@@ -395,7 +326,8 @@
           <div class="card-body">
             <h5 class="card-title">Akok</h5>
             <p class="card-text">Soft, custardy kuih with caramelised edges — coconut & palm sugar aroma.</p>
-            <button class="btn btn-outline-primary fav-btn" data-food="Akok" data-country="Malaysia" aria-label="Add Akok to favourites">Add to
+            <button class="btn btn-outline-primary fav-btn" data-food="Akok" data-country="Malaysia"
+              aria-label="Add Akok to favourites">Add to
               favourites</button>
           </div>
         </div>
@@ -425,7 +357,8 @@
             <h5 class="card-title">Satar</h5>
             <p class="card-text">Cone‑shaped banana leaf parcels with spiced fish and coconut, grilled over charcoal.
             </p>
-            <button class="btn btn-outline-primary fav-btn" data-food="Satar" data-country="Malaysia" aria-label="Add Satar to favourites">Add to
+            <button class="btn btn-outline-primary fav-btn" data-food="Satar" data-country="Malaysia"
+              aria-label="Add Satar to favourites">Add to
               favourites</button>
           </div>
         </div>
@@ -485,7 +418,8 @@
             <h5 class="card-title">Puding Diraja</h5>
             <p class="card-text">Royal dessert with bananas, raisins, dates and creamy milk-egg sauce — once served to
               Pahang royalty.</p>
-            <button class="btn btn-outline-primary fav-btn" data-food="Puding Diraja" data-country="Malaysia">Add to favourites</button>
+            <button class="btn btn-outline-primary fav-btn" data-food="Puding Diraja" data-country="Malaysia">Add to
+              favourites</button>
           </div>
         </div>
       </div>
@@ -499,7 +433,8 @@
             <h5 class="card-title">Gulai Tempoyak Ikan Patin</h5>
             <p class="card-text">Pahang’s signature river catfish in fermented durian curry — tangy, creamy and
               aromatic.</p>
-            <button class="btn btn-outline-primary fav-btn" data-food="Gulai Tempoyak Ikan Patin" data-country="Malaysia">Add to
+            <button class="btn btn-outline-primary fav-btn" data-food="Gulai Tempoyak Ikan Patin"
+              data-country="Malaysia">Add to
               favourites</button>
           </div>
         </div>
@@ -514,7 +449,8 @@
           <div class="card-body">
             <h5 class="card-title">Hinava</h5>
             <p class="card-text">Fresh fish cured with lime, ginger, chilies and shallots — bright and zesty.</p>
-            <button class="btn btn-outline-primary fav-btn" data-food="Hinava" data-country="Malaysia" aria-label="Add Hinava to favourites">Add
+            <button class="btn btn-outline-primary fav-btn" data-food="Hinava" data-country="Malaysia"
+              aria-label="Add Hinava to favourites">Add
               to favourites</button>
           </div>
         </div>
@@ -582,18 +518,12 @@
     </div>
   </main>
 
-  <footer class="py-4 bg-body-tertiary border-top mt-auto">
-    <div class="container text-center small text-secondary">
-      © 2025 Explore Street Food
-      &nbsp;|&nbsp;
-      <a href="about.html" class="text-decoration-none">Group 61</a>
-    </div>
-  </footer>
-
+  <div data-include="partials/footer.html"></div>
 
   <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="partials/loader.js"></script>
   <script src="main.js"></script>
 
   <script>
@@ -635,32 +565,6 @@
         if (fav) { fav.insertAdjacentElement('afterend', btn); fav.classList.add('me-2'); }
         else { body.appendChild(btn); }
       });
-
-      // Toolbar "Map for Selected" link (for a state-wide view)
-      const toolbar = document.querySelector('.row.g-2.align-items-center.mb-3');
-      if (toolbar) {
-        const col = document.createElement('div');
-        col.className = 'col-auto';
-        col.innerHTML = '<a id="openMapForState" class="btn btn-sm btn-outline-secondary" href="#">Map for Selected</a>';
-        toolbar.appendChild(col);
-
-        const select = document.getElementById('stateFilter');
-        const link = col.querySelector('#openMapForState');
-        const updateHref = () => {
-          const v = (select?.value || 'all');
-          if (v === 'all') {
-            link.href = 'map.html?food=Street%20Food&country=Malaysia';
-          } else {
-            const url = new URL('map.html', location.href);
-            url.searchParams.set('food', `${v} Street Food`);
-            url.searchParams.set('country', 'Malaysia');
-            url.searchParams.set('state', v);
-            link.href = url.toString();
-          }
-        };
-        select?.addEventListener('change', updateHref);
-        updateHref();
-      }
     })();
   </script>
 </body>

@@ -32,7 +32,7 @@
           <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
           <li class="nav-item"><a class="nav-link" href="malaysia.html">Malaysia</a></li>
           <li class="nav-item"><a class="nav-link" href="global.html">Global</a></li>
-          <li class="nav-item"><a class="nav-link" href="favorites.html">Favorites</a></li>
+          <li class="nav-item"><a class="nav-link" href="favourites.html">Favourites</a></li>
           <li class="nav-item"><a class="nav-link" href="search.html">Search</a></li>
           <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
           <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
@@ -200,6 +200,7 @@
     document.addEventListener('DOMContentLoaded', () => {
       const SESSION_KEY = 'session_user_v1';
       const ACC_KEY = 'accounts_v1';
+      const LAST_USER_KEY = 'last_user_v1';
 
       const signinCard = document.getElementById('signinCard');
       const signupCard = document.getElementById('signupCard');
@@ -271,9 +272,10 @@
         saveAccounts(acc);
 
         sessionStorage.setItem(SESSION_KEY, user);
+        localStorage.setItem(LAST_USER_KEY, user);
         refreshUI();
         if (window.renderAuthDropdown) window.renderAuthDropdown();
-        location.href = 'index.html';
+
       });
 
       // Sign In
@@ -297,6 +299,7 @@
         }
 
         sessionStorage.setItem(SESSION_KEY, user);
+        localStorage.setItem(LAST_USER_KEY, user);
         refreshUI();
         if (window.renderAuthDropdown) window.renderAuthDropdown();
         location.href = 'index.html';
@@ -305,6 +308,7 @@
       // Signed-in actions
       document.getElementById('btnSignout')?.addEventListener('click', () => {
         sessionStorage.setItem(SESSION_KEY, 'Guest');
+        localStorage.removeItem(LAST_USER_KEY);
         refreshUI();
         if (window.renderAuthDropdown) window.renderAuthDropdown();
         location.href = 'account.html';
@@ -312,6 +316,7 @@
 
       document.getElementById('btnSwitchAccount')?.addEventListener('click', () => {
         sessionStorage.setItem(SESSION_KEY, 'Guest');
+        localStorage.removeItem(LAST_USER_KEY);
         refreshUI();
         if (window.renderAuthDropdown) window.renderAuthDropdown();
         document.getElementById('signinCard').scrollIntoView({ behavior: 'smooth' });
@@ -333,7 +338,7 @@
         alert('Full name updated.');
       });
 
-      // Change Username (prompt + rename key)
+      // Change Username (prompt + rename key)  
       document.getElementById('btnChangeUsername')?.addEventListener('click', () => {
         const u = sessionStorage.getItem(SESSION_KEY) || 'Guest';
         const acc = loadAccounts();
@@ -348,7 +353,25 @@
           acc[nu] = { ...acc[u] };
           delete acc[u];
           saveAccounts(acc);
+
+          // --- migrate favourites data to new username ---
+          const oldListKey = `favourites_${u}`;
+          const oldMetaKey = `favourites_meta_${u}`;
+          const newListKey = `favourites_${nu}`;
+          const newMetaKey = `favourites_meta_${nu}`;
+
+          const list = localStorage.getItem(oldListKey);
+          const meta = localStorage.getItem(oldMetaKey);
+
+          if (list && !localStorage.getItem(newListKey)) localStorage.setItem(newListKey, list);
+          if (meta && !localStorage.getItem(newMetaKey)) localStorage.setItem(newMetaKey, meta);
+
+          localStorage.removeItem(oldListKey);
+          localStorage.removeItem(oldMetaKey);
+          // --- end migration ---
+
           sessionStorage.setItem(SESSION_KEY, nu);
+          localStorage.setItem(LAST_USER_KEY, nu);
           signedName.textContent = nu;
           if (window.renderAuthDropdown) window.renderAuthDropdown();
         }
@@ -356,15 +379,23 @@
         refreshUI();
       });
 
-      // Delete Account
+      // Delete Account  
       document.getElementById('btnDeleteAccount')?.addEventListener('click', () => {
         const u = sessionStorage.getItem(SESSION_KEY) || 'Guest';
         const acc = loadAccounts();
         if (u === 'Guest' || !acc[u]) return;
         if (!confirm('Delete your account? This cannot be undone.')) return;
+
         delete acc[u];
         saveAccounts(acc);
+
+        // --- cleanup favourites when account is deleted ---
+        localStorage.removeItem(`favourites_${u}`);
+        localStorage.removeItem(`favourites_meta_${u}`);
+        // --- end cleanup ---
+
         sessionStorage.setItem(SESSION_KEY, 'Guest');
+        localStorage.removeItem(LAST_USER_KEY);
         refreshUI();
         if (window.renderAuthDropdown) window.renderAuthDropdown();
         alert('Account deleted.');
@@ -373,6 +404,18 @@
 
       refreshUI();
       if (window.renderAuthDropdown) window.renderAuthDropdown();
+
+      try {
+        const p = new URL(location.href).searchParams.get('msg');
+        if (p === 'password_changed') {
+          alert('Password updated successfully.');
+          history.replaceState({}, '', 'account.html');
+        } else if (p === 'signin_required') {
+          alert('Please sign in to continue.');
+          history.replaceState({}, '', 'account.html');
+        }
+      } catch (_) { }
+
     });
   </script>
 </body>

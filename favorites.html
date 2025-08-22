@@ -12,7 +12,7 @@
 </head>
 
 <body>
-  <!-- Auth Gate (require sign in on this page) -->
+  <!-- Auth Gate (ensure a session value exists) -->
   <script>
     (function gate() {
       const key = 'session_user_v1';
@@ -36,7 +36,7 @@
           <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
           <li class="nav-item"><a class="nav-link" href="malaysia.html">Malaysia</a></li>
           <li class="nav-item"><a class="nav-link" href="global.html">Global</a></li>
-          <li class="nav-item"><a class="nav-link" href="favorites.html">Favorites</a></li>
+          <li class="nav-item"><a class="nav-link" href="favourites.html">Favourites</a></li>
           <li class="nav-item"><a class="nav-link" href="search.html">Search</a></li>
           <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
           <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
@@ -82,13 +82,13 @@
 
   <main class="container py-5">
     <div class="d-flex align-items-center justify-content-between mb-3">
-      <h1 class="mb-0">Your Favorites</h1>
+      <h1 class="mb-0">Your Favourites</h1>
       <div class="d-flex gap-2">
         <button id="clearAll" class="btn btn-outline-danger">Clear All</button>
       </div>
     </div>
 
-    <div id="empty" class="alert alert-info d-none">No favorites yet. Add some from Search, Malaysia, or Global!</div>
+    <div id="empty" class="alert alert-info d-none">No favourites yet. Add some from Search, Malaysia, or Global!</div>
     <div id="favGrid" class="row g-4"></div>
   </main>
 
@@ -109,14 +109,6 @@
       '<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360"><rect width="100%" height="100%" fill="#e9ecef"/><text x="50%" y="50%" dominant-baseline="middle" text-anchor="middle" font-family="Arial" font-size="20" fill="#6c757d">No image</text></svg>'
     );
 
-    function getFavs() { try { return JSON.parse(localStorage.getItem('favorites') || '[]'); } catch { return []; } }
-    function setFavs(a) { localStorage.setItem('favorites', JSON.stringify(a || [])); }
-
-    function getFavMeta() { try { return JSON.parse(localStorage.getItem('favorites_meta_v1') || '{}'); } catch { return {}; } }
-    function setFavMeta(m) { localStorage.setItem('favorites_meta_v1', JSON.stringify(m || {})); }
-
-    function getSiteCatalog() { try { return JSON.parse(localStorage.getItem('catalog_all_v1') || '[]'); } catch { return []; } }
-
     const GRID = document.getElementById('favGrid');
     const EMPTY = document.getElementById('empty');
     const CLEAR = document.getElementById('clearAll');
@@ -126,21 +118,25 @@
       return s.split(/[- ]+/).map(x => x.charAt(0).toUpperCase() + x.slice(1)).join(' ');
     }
 
-    function card(name, meta) {
-      const img = meta?.img || FALLBACK_IMG;
-      const link = meta?.link || '#';
-      const country = meta?.country || '';
-      const stateRaw = meta?.state || '';
+    function card(name, meta = {}) {
+      const img = meta.img || FALLBACK_IMG;
+      const link = meta.link || '#';
+      let country = meta.country || '';
+      const stateRaw = meta.state || '';
       const state = prettyState(stateRaw);
-      const source = meta?.source || 'site';
+      const source = meta.source || 'site';
       const badge = source === 'api' ? '<span class="badge text-bg-secondary badge-corner">API</span>' : '';
 
-      // Always show “From site”, and then show Country/State lines if we have them
-      const locLines = [
-        '<small class="text-muted mb-1">From site</small>',
-        country ? `<small class="text-muted">Country: ${country}</small>` : '',
-        state ? `<small class="text-muted">State: ${state}</small>` : ''
-      ].filter(Boolean).join('<br>');
+      if (!country && state) country = 'Malaysia';
+
+      let locationLine = '';
+      if (country && state) {
+        locationLine = `<small class="text-muted"> ${country} - ${state}</small>`;
+      } else if (country) {
+        locationLine = `<small class="text-muted"> ${country}</small>`;
+      } else {
+        locationLine = '<small class="text-muted">From site</small>';
+      }
 
       return `<div class="col-sm-6 col-md-4 col-lg-3">
         <div class="card h-100 position-relative">
@@ -148,12 +144,10 @@
           <img class="card-img-top" src="${img}" alt="${name}" onerror="this.src='${FALLBACK_IMG}'">
           <div class="card-body d-flex flex-column">
             <h6 class="card-title mb-2"><a class="text-decoration-none" href="${link}">${name}</a></h6>
-            ${locLines}
+            ${locationLine}
             <div class="mt-auto d-grid gap-2 pt-2">
               <div class="d-flex gap-2">
-                <button class="btn btn-outline-secondary btn-sm"
-                  data-map="${name}"
-                  data-country="${country}" data-state="${stateRaw}">View on Map</button>
+                <button class="btn btn-outline-secondary btn-sm" data-map="${name}">View on Map</button>
                 <button class="btn btn-outline-danger btn-sm" data-remove="${name}">Remove</button>
               </div>
             </div>
@@ -163,10 +157,9 @@
     }
 
     function render() {
-      const names = getFavs();
-      const meta = getFavMeta();
-      const site = getSiteCatalog();
-      const siteMap = new Map(site.map(x => [x.name, x])); // fallback for Malaysia/Global
+      const store = Site.userStore();
+      const names = store.getFavs();
+      const meta = store.getFavMeta();
 
       if (!names.length) {
         EMPTY.classList.remove('d-none');
@@ -175,17 +168,12 @@
       }
       EMPTY.classList.add('d-none');
 
-      GRID.innerHTML = names.map(n => {
-        const m = meta[n] || siteMap.get(n) || null;
-        return card(n, m);
-      }).join('');
+      GRID.innerHTML = names.map(n => card(n, meta[n] || {})).join('');
 
       GRID.querySelectorAll('button[data-remove]').forEach(btn => {
         btn.addEventListener('click', () => {
           const name = btn.getAttribute('data-remove');
-          setFavs(getFavs().filter(x => x !== name));
-          const mm = getFavMeta();
-          if (mm[name]) { delete mm[name]; setFavMeta(mm); }
+          Site.removeFavourite(name);
           render();
         });
       });
@@ -193,16 +181,9 @@
       GRID.querySelectorAll('button[data-map]').forEach(btn => {
         btn.addEventListener('click', () => {
           const name = btn.getAttribute('data-map') || 'street food';
-          let country = btn.getAttribute('data-country') || '';
-          let state = btn.getAttribute('data-state') || '';
-
-          // fallback to stored meta/site catalog if attributes are empty
-          if (!country || !state) {
-            const mm = getFavMeta()[name];
-            const ss = (getSiteCatalog().find(x => x.name === name) || {});
-            country = country || mm?.country || ss?.country || '';
-            state = state || mm?.state || ss?.state || '';
-          }
+          const m = Site.userStore().getFavMeta()[name] || {};
+          let country = m.country || '';
+          let state = m.state || '';
           if (!country && state) country = 'Malaysia';
 
           const url = new URL('map.html', location.href);
@@ -215,12 +196,18 @@
     }
 
     CLEAR.addEventListener('click', () => {
-      if (!confirm('Clear all favorites?')) return;
-      setFavs([]);
-      setFavMeta({});
+      if (!confirm('Clear all favourites?')) return;
+      const store = Site.userStore();
+      store.setFavs([]);
+      store.setFavMeta({});
       render();
+      if (sessionStorage.getItem('session_user_v1') === 'Guest') {
+        alert('Please sign in to manage your favourites.');
+        return;
+      }
     });
 
+    // Initial render
     render();
   </script>
 </body>

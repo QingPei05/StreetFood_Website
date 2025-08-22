@@ -32,7 +32,7 @@
           <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
           <li class="nav-item"><a class="nav-link" href="malaysia.html">Malaysia</a></li>
           <li class="nav-item"><a class="nav-link" href="global.html">Global</a></li>
-          <li class="nav-item"><a class="nav-link" href="favorites.html">Favorites</a></li>
+          <li class="nav-item"><a class="nav-link" href="favourites.html">Favourites</a></li>
           <li class="nav-item"><a class="nav-link" href="search.html">Search</a></li>
           <li class="nav-item"><a class="nav-link" href="reviews.html">Reviews</a></li>
           <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
@@ -166,7 +166,7 @@
       return t.map(s => String(s).trim()).filter(Boolean).slice(0, 4);
     }
 
-    // ---------- Favorites ----------
+    // ---------- Favourites ----------
     function cardHTML(x) {
       const tags = x.tags?.length ? `<p class="mt-2 mb-2"><span class="badge text-bg-light">${x.tags.join('</span> <span class="badge text-bg-light">')}</span></p>` : '';
       return `<div class="col-sm-6 col-md-3">
@@ -180,7 +180,7 @@
                     <button class="btn btn-outline-primary btn-sm fav-btn"
                             data-food="${x.name}"
                             data-img="${x.img}"
-                            data-country="${x.country}">Add to favorites</button>
+                            data-country="${x.country}">Add to favourites</button>
                     <button class="btn btn-outline-secondary btn-sm map-btn"
                             data-q="${x.name}"
                             data-country="${x.country}">View on Map</button>
@@ -193,8 +193,8 @@
     function render(list) {
       GRID.innerHTML = (list && list.length) ? list.map(cardHTML).join('') : '';
 
-      // Bind shared favorites with metadata from the Search cards
-      Site.bindFavorites(GRID, {
+      // Bind shared favourites with metadata from the Search cards
+      Site.bindFavourites(GRID, {
         getMetaFor: (btn) => ({
           img: btn.getAttribute('data-img') || '',
           country: btn.getAttribute('data-country') || '',

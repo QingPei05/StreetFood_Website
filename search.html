@@ -61,6 +61,36 @@
     const API_DUMMY = 'https://dummyjson.com/recipes?limit=120';                 // has "cuisine"
     const API_MEALDB_AREAS = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list'; // valid demonyms list
 
+    const CACHE_KEY = 'search_cache_v1';
+    const CACHE_TTL_MS = 6 * 60 * 60 * 1000; // 6 hours
+
+    function saveCache() {
+      try {
+        const payload = { ts: Date.now(), data: DATA, areas: VALID_AREAS, cMap: COUNTRY_MAP };
+        sessionStorage.setItem(CACHE_KEY, JSON.stringify(payload));
+      } catch { }
+    }
+
+    function tryHydrateFromCache() {
+      try {
+        const raw = sessionStorage.getItem(CACHE_KEY);
+        if (!raw) return false;
+        const { ts, data, areas, cMap } = JSON.parse(raw);
+        if (!ts || Date.now() - ts > CACHE_TTL_MS) return false;
+
+        DATA = Array.isArray(data) ? data : [];
+        VALID_AREAS = Array.isArray(areas) ? areas : [];
+        COUNTRY_MAP = cMap || {};
+
+        buildCountryFilter(DATA);
+        filterNow();
+        NOTICE.className = 'alert alert-success';
+        NOTICE.textContent = `Loaded ${DATA.length} item(s) from cache.`;
+        LOAD.textContent = 'Refresh from API';
+        LOAD.disabled = false;
+        return true;
+      } catch { return false; }
+    }
     // ---------- State ----------
     let DATA = [];        // normalized items
     let VALID_AREAS = []; // TheMealDB demonyms
@@ -201,6 +231,10 @@
           return acc;
         }, []);
 
+        saveCache();
+        LOAD.textContent = 'Refresh from API';
+        LOAD.disabled = false;
+
         buildCountryFilter(DATA);
         filterNow();
 
@@ -220,6 +254,8 @@
     Q.addEventListener('input', filterNow);
     COUNTRY.addEventListener('change', filterNow);
     LOAD.addEventListener('click', loadFromAPI);
+    // Try to render from cache on page load
+    tryHydrateFromCache();
   </script>
 </body>
 

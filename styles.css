@@ -129,6 +129,8 @@ html[data-bs-theme="dark"] .card:hover {
   position: absolute;
   top: .5rem;
   right: .5rem;
+  z-index: 10;
+  pointer-events: none;
 }
 
 /* Buttons */

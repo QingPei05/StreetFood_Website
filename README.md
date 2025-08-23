@@ -1,37 +1,64 @@
-# Explore Street Food
+# Explore Street Food — Web Project
 
-A front-end web project showcasing Malaysian and global street food, built with **HTML5**, **CSS3**, **Bootstrap 5**, and **JavaScript**.  
-Includes interactive features such as favourites, search, reviews, quiz, and map integration.
-
----
-
-## 🚀 Features
-
-- **Responsive Navbar** with links to:
-  - About, Malaysia, Global, Favourites, Search, Reviews, Contact, Quiz, Map
-  - Dark/Light mode toggle (🌙/☀️)
-- **Active Page Highlight** — current page link turns orange
-- **Favourites** — add/remove dishes using LocalStorage, with persistent “Added to favourites” state
-- **Search** — filter street foods by keyword/region, plus optional API demo
-- **Reviews** — add, display, and clear reviews with form validation
-- **Quiz** — fun personality quiz using SessionStorage
-- **Map** — Google Maps embeds of famous food spots
-- **Back to Main** — button in navbar on all pages except home
-- **Sticky Footer** — © 2025 Explore Street Food always at the bottom
+A lightweight, static website that showcases Malaysian and global street food with favourites, account simulation, dark/light theme, and a “View on Map” experience that centers correctly on the selected country or Malaysian state.
 
 ---
 
-## 📂 File Structure
-- **styles.css**   # Main site styling
-- **main.js**   # JS for navbar, theme toggle, favourites, etc.
-- **index.html**   # Homepage
-- **about.html**   # About page
-- **malaysia.html**   # Malaysian street food list
-- **global.html**   # Global street food list
-- **favourites.html**   # Favourites list
-- **search.html**   # Search page + optional API call
-- **reviews.html**   # Review submission + display
-- **contact.html**   # Contact form + social media plugin
-- **quiz.html**   # Fun quiz
-- **map.html**   # Map embeds
-- **README.md**   # This file
+## 1) Quick Start
+
+You should serve the site over HTTP (so the partials loader can fetch the navbar/footer and the browser can grant better geolocation accuracy).
+
+### Option A — VS Code (recommended)
+
+* Install the “Live Server” extension.
+* Open the project folder, right-click `index.html` → **Open with Live Server**.
+
+### Option B — Python (built-in on macOS/Linux/WSL)
+
+```bash
+# from the project folder:
+python -m http.server 8000
+# then open http://localhost:8000
+```
+
+### Option C — Node
+
+```bash
+npx serve .
+# then open the printed URL, e.g. http://localhost:3000
+```
+
+---
+
+## 2) Project Structure
+
+```
+.
+├─ index.html              # Home (hero section + highlights)
+├─ about.html              # About + team section (numbered badges)
+├─ malaysia.html           # Malaysian dishes (state filter + “View on Map”)
+├─ global.html             # Global dishes (continent filter + “View on Map”)
+├─ map.html                # Map page (geolocate by default; honors ?food/&country/&state)
+├─ search.html             # Simple search (optional demo)
+├─ reviews.html            # Local reviews (saved in localStorage)
+├─ favourites.html         # Per-user favourites grid
+├─ account.html            # Sign in / Sign up / Signed-in actions
+├─ change-password.html    # Change password (localStorage demo)
+├─ contact.html            # Contact form + social card
+├─ styles.css              # All site styling (including About “team number” circle)
+├─ main.js                 # Shared JS: theme, navbar, favourites, auth dropdown, etc.
+├─ partials/
+│  ├─ navbar.html          # Shared navbar (included into pages)
+│  ├─ footer.html          # Shared footer (included into pages)
+│  └─ loader.js            # Minimal include loader for partials (navbar/footer)
+└─ scripts/
+   └─ auth-gate.js         # Optional auth gate hook (kept as a shared include)
+```
+
+---
+
+## 3) Credits / License
+
+* **Images**: Educational use from public sources credited on the **About** page.
+* **Libraries**: [Bootstrap 5.3](https://getbootstrap.com/).
+* **License**: Classroom/educational use.

@@ -8,6 +8,7 @@
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -17,171 +18,243 @@
   <!-- Navbar -->
   <div data-include="partials/navbar.html"></div>
 
-  <main class="container py-5">
-    <section class="text-center mb-5">
-      <h1 class="fw-bold">About Our Project</h1>
-      <p class="lead text-muted">
-        Our website explores the rich world of street food — starting in Malaysia and expanding globally.
-        We aim to celebrate food culture, improve user engagement through interactive features and
-        showcase modern web development techniques.
-      </p>
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content text-center text-white">
+        <nav class="breadcrumb-nav mb-3">
+          <span class="breadcrumb-item">Home</span>
+          <span class="breadcrumb-separator">/</span>
+          <span class="breadcrumb-item active">About Us</span>
+        </nav>
+        <h1 class="hero-title">About Us</h1>
+      </div>
+    </div>
+  </section>
+
+  <div class="main-container">
+    <!-- Story Section with Image -->
+    <section class="story-section">
+      <div class="container">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-6">
+            <div class="story-content">
+              <span class="section-label">OUR STORY</span>
+              <h2 class="section-title">Discover Street Food Culture <span class="highlight">Explore. Taste. Connect.</span></h2>
+              <p class="story-description">Our website explores the rich world of street food — starting in Malaysia and expanding globally. We aim to celebrate food culture, improve user engagement through interactive features and showcase modern web development techniques.</p>
+              <p class="story-description">From bustling night markets in Kuala Lumpur to food trucks in New York, we're passionate about connecting people with authentic street food experiences that tell the story of local communities and traditions.</p>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <div class="story-image">
+              <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="Street food market scene" class="img-fluid rounded-3 shadow">
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Mission & Vision -->
-    <section class="mb-5">
-      <div class="row g-4">
-        <div class="col-md-6">
-          <div class="p-4 bg-body-tertiary rounded-3 h-100">
-            <h2 class="h4 mb-2">Our Mission</h2>
-            <p class="mb-0">
-              Make street food discovery simple, visual and fun—so anyone can find iconic bites,
-              learn their stories and plan where to try them next.
-            </p>
-          </div>
-        </div>
-        <div class="col-md-6">
-          <div class="p-4 bg-body-tertiary rounded-3 h-100">
-            <h2 class="h4 mb-2">Our Vision</h2>
-            <p class="mb-0">
-              Be the go‑to student project that inspires food lovers to explore culture through food—
-              locally in Malaysia and around the world.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- What you’ll find -->
-    <section class="mb-5">
-      <h2 class="h4 mb-3">What you’ll find here</h2>
-      <div class="row g-3">
-        <div class="col-md-4">
-          <div class="p-4 bg-body-tertiary rounded-3 h-100">
-            <h3 class="h6 mb-2">Curated Dishes</h3>
-            <p class="mb-0 small">Clear photos, short descriptions and country/state filters for quick browsing.</p>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="p-4 bg-body-tertiary rounded-3 h-100">
-            <h3 class="h6 mb-2">Save & Compare</h3>
-            <p class="mb-0 small">Add items to Favourites, open map views and jump back anytime.</p>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="p-4 bg-body-tertiary rounded-3 h-100">
-            <h3 class="h6 mb-2">Community Touch</h3>
-            <p class="mb-0 small">Lightweight reviews and engaging features—because food should be fun.</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Team -->
-    <section class="about-team">
-      <h2 class="h4 mb-3">Team</h2>
-      <div class="row row-cols-1 row-cols-md-4 g-3">
-        <!-- 1 -->
-        <div class="col">
-          <div class="card h-100">
-            <div class="card-body">
-              <div class="team-number">1</div>
-              <h3 class="h5 mb-1">Chuah Qing Pei</h3>
-              <span class="badge rounded-pill text-bg-primary mb-2">Leader</span>
-              <p class="small text-muted mb-3">
-                Leads reporting and content foundation, focusing on background research, literature review and
-                development of the homepage, about and map pages. </p>
-              <div class="d-flex flex-wrap gap-2">
-                <a class="btn btn-sm btn-outline-primary" href="index.html">Home</a>
-                <a class="btn btn-sm btn-outline-primary" href="about.html">About</a>
-                <a class="btn btn-sm btn-outline-primary" href="map.html">Map</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 2 -->
-        <div class="col">
-          <div class="card h-100">
-            <div class="card-body">
-              <div class="team-number">2</div>
-              <h3 class="h5 mb-1">Leong Zhe Han</h3>
-              <span class="badge rounded-pill text-bg-secondary mb-2">Member</span>
-              <p class="small text-muted mb-3">
-                Handles design documentation and evaluation, creating wireframes, sitemaps and user manuals while
-                developing the Malaysia and Global food pages. </p>
-              <div class="d-flex flex-wrap gap-2">
-                <a class="btn btn-sm btn-outline-primary" href="malaysia.html">Malaysia</a>
-                <a class="btn btn-sm btn-outline-primary" href="global.html">Global</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 3 -->
-        <div class="col">
-          <div class="card h-100">
-            <div class="card-body">
-              <div class="team-number">3</div>
-              <h3 class="h5 mb-1">Soo Che Leng</h3>
-              <span class="badge rounded-pill text-bg-secondary mb-2">Member</span>
-              <p class="small text-muted mb-3">
-                Drives functional development by implementing JavaScript features such as cookies, local/session
-                storage, RESTful API integration and favourites/search pages. </p>
-              <div class="d-flex flex-wrap gap-2">
-                <a class="btn btn-sm btn-outline-primary" href="favourites.html">Favourites</a>
-                <a class="btn btn-sm btn-outline-primary" href="search.html">Search</a>
-                <a class="btn btn-sm btn-outline-primary" href="account.html">Account</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 4 -->
-        <div class="col">
-          <div class="card h-100">
-            <div class="card-body">
-              <div class="team-number">4</div>
-              <h3 class="h5 mb-1">Josiah Hoo Kiu Sian</h3>
-              <span class="badge rounded-pill text-bg-secondary mb-2">Member</span>
-              <p class="small text-muted mb-3">
-                Leads UI/UX styling and presentation, designing responsive layouts, creating demo videos and developing
-                the Contact and Reviews pages. </p>
-              <div class="d-flex flex-wrap gap-2">
-                <a class="btn btn-sm btn-outline-primary" href="reviews.html">Reviews</a>
-                <a class="btn btn-sm btn-outline-primary" href="contact.html">Contact</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Image Credits -->
-    <p></p>
-    <section class="py-5 border-top">
+    <section class="mission-vision-section">
       <div class="container">
-        <h2 class="mb-3">Image Credits</h2>
-        <p class="text-muted small">
-          We acknowledge and thank the following platforms and creators for providing the food images
-          featured on this website:
-        </p>
-        <ul class="list-unstyled small text-muted">
-          <li>📸 <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener">Wikimedia Commons</a> — open
-            media library of Wikipedia</li>
-          <li>📸 <a href="https://sweetkitchencravings.com/" target="_blank" rel="noopener">Sweet Kitchen Cravings</a> —
-            recipes and food photography</li>
-          <li>📸 <a href="https://www.vegkit.com/recipes/" target="_blank" rel="noopener">VegKit Recipes</a> —
-            plant-based recipe inspirations</li>
-        </ul>
-        <p class="small text-muted mb-0">
-          All images remain the property of their respective owners. They are used here for educational and
-          non-commercial purposes only.
-        </p>
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="mission-card">
+              <div class="card-header">
+                <span class="card-icon">🎯</span>
+                <h3 class="card-title">Our Mission</h3>
+              </div>
+              <p class="card-description">
+                Make street food discovery simple, visual and fun—so anyone can find iconic bites,
+                learn their stories and plan where to try them next.
+              </p>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="vision-card">
+              <div class="card-header">
+                <span class="card-icon">🌟</span>
+                <h3 class="card-title">Our Vision</h3>
+              </div>
+              <p class="card-description">
+                Be the go‑to student project that inspires food lovers to explore culture through food—
+                locally in Malaysia and around the world.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
+    <!-- Features Section -->
+    <section class="features-section">
+      <div class="container">
+        <div class="text-center mb-4">
+          <span class="section-label">WHAT WE OFFER</span>
+          <h2 class="section-title">What you'll find here</h2>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="feature-icon">🍜</div>
+              <h3 class="feature-title">Curated Dishes</h3>
+              <p class="feature-description">Clear photos, short descriptions and country/state filters for quick browsing.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="feature-icon">❤️</div>
+              <h3 class="feature-title">Save & Compare</h3>
+              <p class="feature-description">Add items to Favourites, open map views and jump back anytime.</p>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="feature-card">
+              <div class="feature-icon">👥</div>
+              <h3 class="feature-title">Community Touch</h3>
+              <p class="feature-description">Lightweight reviews and engaging features—because food should be fun.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  </main>
+    <!-- Team Section -->
+    <section class="team-section">
+      <div class="container">
+        <div class="text-center mb-4">
+          <span class="section-label">OUR TEAM</span>
+          <h2 class="section-title">Meet Our Team</h2>
+        </div>
+        <div class="row g-4">
+          <!-- Team Member 1 -->
+          <div class="col-md-6 col-lg-3">
+            <div class="team-card">
+              <div class="team-number">01</div>
+              <div class="team-info">
+                <h3 class="team-name">Chuah Qing Pei</h3>
+                <span class="team-role leader">Team Leader</span>
+                <p class="team-description">
+                  Leads reporting and content foundation, focusing on background research, literature review and
+                  development of the homepage, about and map pages.
+                </p>
+                <div class="team-links">
+                  <a href="index.html" class="team-link">🏠 Home</a>
+                  <a href="about.html" class="team-link">ℹ️ About</a>
+                  <a href="map.html" class="team-link">🗺️ Map</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Team Member 2 -->
+          <div class="col-md-6 col-lg-3">
+            <div class="team-card">
+              <div class="team-number">02</div>
+              <div class="team-info">
+                <h3 class="team-name">Leong Zhe Han</h3>
+                <span class="team-role design">Design Lead</span>
+                <p class="team-description">
+                  Handles design documentation and evaluation, creating wireframes, sitemaps and user manuals while
+                  developing the Malaysia and Global food pages.
+                </p>
+                <div class="team-links">
+                  <a href="malaysia.html" class="team-link">🇲🇾 Malaysia</a>
+                  <a href="global.html" class="team-link">🌍 Global</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Team Member 3 -->
+          <div class="col-md-6 col-lg-3">
+            <div class="team-card">
+              <div class="team-number">03</div>
+              <div class="team-info">
+                <h3 class="team-name">Soo Che Leng</h3>
+                <span class="team-role dev">Dev Lead</span>
+                <p class="team-description">
+                  Drives functional development by implementing JavaScript features such as cookies, local/session
+                  storage, RESTful API integration and favourites/search pages.
+                </p>
+                <div class="team-links">
+                  <a href="favourites.html" class="team-link">❤️ Favourites</a>
+                  <a href="search.html" class="team-link">🔍 Search</a>
+                  <a href="account.html" class="team-link">👤 Account</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Team Member 4 -->
+          <div class="col-md-6 col-lg-3">
+            <div class="team-card">
+              <div class="team-number">04</div>
+              <div class="team-info">
+                <h3 class="team-name">Josiah Hoo Kiu Sian</h3>
+                <span class="team-role ui">UI/UX Lead</span>
+                <p class="team-description">
+                  Leads UI/UX styling and presentation, designing responsive layouts, creating demo videos and developing
+                  the Contact and Reviews pages.
+                </p>
+                <div class="team-links">
+                  <a href="reviews.html" class="team-link">⭐ Reviews</a>
+                  <a href="contact.html" class="team-link">📧 Contact</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Credits Section -->
+    <section class="credits-section">
+      <div class="container">
+        <div class="credits-container">
+          <h2 class="credits-title">📸 Image Credits</h2>
+          <p class="credits-intro">
+            We acknowledge and thank the following platforms and creators for providing the food images
+            featured on this website:
+          </p>
+          <div class="credits-grid">
+            <div class="credit-item">
+              <span class="credit-icon">📚</span>
+              <div class="credit-info">
+                <a href="https://commons.wikimedia.org/" target="_blank" rel="noopener" class="credit-link">Wikimedia Commons</a>
+                <small class="credit-description">Open media library of Wikipedia</small>
+              </div>
+            </div>
+            <div class="credit-item">
+              <span class="credit-icon">🍰</span>
+              <div class="credit-info">
+                <a href="https://sweetkitchencravings.com/" target="_blank" rel="noopener" class="credit-link">Sweet Kitchen Cravings</a>
+                <small class="credit-description">Recipes and food photography</small>
+              </div>
+            </div>
+            <div class="credit-item">
+              <span class="credit-icon">🥗</span>
+              <div class="credit-info">
+                <a href="https://www.vegkit.com/recipes/" target="_blank" rel="noopener" class="credit-link">VegKit Recipes</a>
+                <small class="credit-description">Plant-based recipe inspirations</small>
+              </div>
+            </div>
+            <div class="credit-item">
+              <span class="credit-icon">📷</span>
+              <div class="credit-info">
+                <a href="https://unsplash.com/" target="_blank" rel="noopener" class="credit-link">Unsplash</a>
+                <small class="credit-description">High-quality stock photography</small>
+              </div>
+            </div>
+          </div>
+          <p class="credits-disclaimer">
+            All images remain the property of their respective owners. They are used here for educational and
+            non-commercial purposes only.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
 
   <div data-include="partials/footer.html"></div>
 
